@@ -1,17 +1,16 @@
 io.stdout:setvbuf("no")
-local Object = require "lib.classic"
-local World = require "alph.World"
-
-local world
+-- Game States
+Gamestate = require "lib.hump.gamestate"
+playstate = require "playstate"
+menustate = require "menustate"
 
 function love.load()
-	world = World()
+	Gamestate.registerEvents()
+	Gamestate.switch(menustate)
 end
 
 function love.update(dt)
-	world:update(dt)
 end
 
 function love.draw()
-	world:update(dt)
 end
