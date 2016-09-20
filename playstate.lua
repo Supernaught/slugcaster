@@ -1,29 +1,32 @@
---
--- playstate
---
+-- play state
 
-local play = {}
+playstate = {}
 
--- Entity/World management
-local Object = require "lib.classic"
-local World = require "alph.World"
-local world
+local Player = require "src.entities.Player"
+local Camera = require "lib.hump.camera"
 
-function play:init()
-	world = World()
+local player
+local uiScore
+local score = 0
+
+function playstate:init()
+	player = Player()
+	camera = Camera(0, 0, 1)
+
+	self.world = tiny.world(
+		require("src.systems.UpdateSystem")(),
+		require("src.systems.BGColorSystem")(20,0,0),
+		require("src.systems.DrawUISystem")("hudForeground"),
+		player
+	)
+
+	world = self.world
 end
 
-function play:enter()
+function playstate:update(dt)
 end
 
-function play:update(dt)
-	world:update(dt)
+function playstate:draw()
 end
 
-function play:draw()
-	world:update(dt)
-
-	love.graphics.print("PLAY", 50, 50)
-end
-
-return play
+return playstate

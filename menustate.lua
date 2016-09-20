@@ -1,25 +1,29 @@
---
--- menustate
---
+menustate = {}
 
-local menu = {}
+local UIText = require "src.entities.UIText"
+local PlayState = require "playstate"
 
-function menu:enter()
+local title, pressToPlay
+local dir = 1
+
+function menustate:init()
+	self.world = tiny.world(
+		require("src.systems.BGColorSystem")(0,0,10),
+		require("src.systems.DrawUISystem")("hudForeground"),
+		UIText("GAME TITLE", 0, 150, nil, nil, 60),
+		UIText("Press SPACE to start", 0, 400, nil, nil, 24)
+	)
+
+	world = self.world
 end
 
-function menu:update(dt)
-end
-
-function menu:keyreleased(key, code)
-	if key == 'return' then
-		Gamestate.switch(playstate)
-	elseif key == 'escape' then
-		love.event.push('quit')
+function menustate:update(dt)
+	if love.keyboard.isDown("space") then
+		Gamestate.switch(PlayState)
 	end
 end
 
-function menu:draw()
-	love.graphics.print("MAIN MENU\n\nPress ENTER to start.\nPress ESC to quit", 50, 50)
+function menustate:draw()
 end
 
-return menu
+return menustate
