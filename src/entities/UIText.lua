@@ -1,12 +1,10 @@
 local UIText = Object:extend()
 
 function UIText:drawHud()
-	doDetach = camera and self.inCamera ~= true
-
-	if doDetach then camera:detach() end
+	-- if doDetach then camera:detach() end
 	love.graphics.setFont(love.graphics.newFont(self.fontSize))
 	love.graphics.printf(self.text, self.pos.x, self.pos.y, self.width, self.align)
-	if doDetach then camera:attach() end
+	-- if doDetach then camera:attach() end
 end
 
 function UIText:new(text, x, y, width, align, fontSize)

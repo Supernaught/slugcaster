@@ -10,8 +10,8 @@ function menustate:init()
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(0,0,10),
 		require("src.systems.DrawUISystem")("hudForeground"),
-		UIText("GAME TITLE", 0, 150, nil, nil, 60),
-		UIText("Press SPACE to start", 0, 400, nil, nil, 24)
+		UIText("GAME TITLE", 0, push:getHeight() * 0.2, push:getWidth(), nil, 24),
+		UIText("Press SPACE to start", 0, push:getHeight() * 0.7, push:getWidth(), nil, 12)
 	)
 
 	world = self.world

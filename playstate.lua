@@ -14,8 +14,9 @@ function playstate:init()
 	camera = Camera(0, 0, 1)
 
 	self.world = tiny.world(
-		require("src.systems.UpdateSystem")(),
 		require("src.systems.BGColorSystem")(20,0,0),
+		require("src.systems.UpdateSystem")(),
+		require("src.systems.SpriteSystem")(),
 		require("src.systems.DrawUISystem")("hudForeground"),
 		player
 	)
@@ -27,6 +28,7 @@ function playstate:update(dt)
 end
 
 function playstate:draw()
+	love.graphics.print("Hello world, this is the playstate.lua with a Player entity", 20, 20)
 end
 
 return playstate
