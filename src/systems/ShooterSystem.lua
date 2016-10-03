@@ -10,6 +10,8 @@
 -- 		shoot = false
 -- 	}
 --
+-- Usage: To shoot, set entity.shooter.shoot to true
+--
 
 local ShooterSystem = tiny.processingSystem(class "ShooterSystem")
 local Bullet = require "src.entities.Bullet"
@@ -32,7 +34,7 @@ end
 
 -- actually fire a bullet
 function ShooterSystem:shoot(e, dt, s)
-	world:addEntity(Bullet(e.pos.x, e.pos.y, e.angle))
+	world:addEntity(Bullet(e.pos.x, e.pos.y, e.angle + math.rad(180)))
 
 	s.canAtk = false
 	timer.after(s.atkDelay, function() s.canAtk = true end)

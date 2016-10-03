@@ -2,7 +2,10 @@ local GameObject = Object:extend()
 local assets = require "src.assets"
 
 function GameObject:new(x,y)
+	-- gameobject
 	self.name = "GameObject"
+	self.isAlive = true
+	self.toRemove = false
 
 	-- transform
 	self.pos = { x = x or 0, y = y or 0 }

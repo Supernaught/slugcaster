@@ -29,12 +29,14 @@ world = {}
 camera = nil
 
 -- Game settings
-local scale = 2
+local scale = 1
 
 function love.load()
+	scale = love.graphics.getWidth() / 160
 	setupPushScreen()
 	Gamestate.registerEvents()
 	Gamestate.switch(MenuState)
+	-- Gamestate.switch(PlayState)
 end
 
 function love.update(dt)

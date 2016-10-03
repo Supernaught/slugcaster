@@ -1,34 +1,48 @@
--- play state
+-- playstate
 
 playstate = {}
 
+-- entities
 local Player = require "src.entities.Player"
+local Enemy = require "src.entities.Enemy"
+local Spawner = require "src.entities.Spawner"
+-- libs
 local Camera = require "lib.hump.camera"
+local HClib = require "lib.hc"
 
 local player
 local uiScore
 local score = 0
 
+HC = nil
+
 function playstate:init()
 	player = Player()
 	camera = Camera(0, 0, 1)
+	
+	HC = HClib.new(150)
 
 	self.world = tiny.world(
-		require("src.systems.BGColorSystem")(20,0,0),
+		require("src.systems.BGColorSystem")(156,189,22),
 		require("src.systems.UpdateSystem")(),
+		require("src.systems.MoveTowardsAngleSystem")(),
+		require("src.systems.CollisionSystem")(),
+		require("src.systems.MovableSystem")(),
 		require("src.systems.SpriteSystem")(),
+		require("src.systems.ShooterSystem")(),
+		require("src.systems.DestroyOffScreenSystem")(),
 		require("src.systems.DrawUISystem")("hudForeground"),
 		player
 	)
 
 	world = self.world
-end
-
-function playstate:update(dt)
+	world:add(Spawner())
 end
 
 function playstate:draw()
-	love.graphics.print("Hello world, this is the playstate.lua with a Player entity", 20, 20)
+	push:apply("start")
+	push:apply("end")	
+	love.graphics.print("FPS: " .. tostring(love.timer.getFPS()) .. "\nEntities: " .. world:getEntityCount(), 5, 5)
 end
 
 return playstate

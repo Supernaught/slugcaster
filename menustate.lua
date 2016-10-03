@@ -2,6 +2,7 @@ menustate = {}
 
 local UIText = require "src.entities.UIText"
 local PlayState = require "playstate"
+local assets =  require "src.assets"
 
 local title, pressToPlay
 local dir = 1
@@ -10,8 +11,8 @@ function menustate:init()
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(0,0,10),
 		require("src.systems.DrawUISystem")("hudForeground"),
-		UIText("GAME TITLE", 0, push:getHeight() * 0.2, push:getWidth(), nil, 24),
-		UIText("Press SPACE to start", 0, push:getHeight() * 0.7, push:getWidth(), nil, 12)
+		UIText("GBJAM5", 0, push:getHeight() * 0.2, push:getWidth(), nil, nil, assets.font_md),
+		UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
 	)
 
 	world = self.world
