@@ -11,6 +11,7 @@ function menustate:init()
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(0,0,10),
 		require("src.systems.DrawUISystem")("hudForeground"),
+
 		UIText("GBJAM5", 0, push:getHeight() * 0.2, push:getWidth(), nil, nil, assets.font_md),
 		UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
 	)

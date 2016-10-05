@@ -26,7 +26,7 @@ function Bullet:new(x, y, angle, speed)
 	self.moveTowardsAngle = true
 
 	-- movable component
-	self.speed = speed or 300
+	self.speed = speed or 200
 	self.movable = {
 		velocity = { x = 0, y = 0 },
 		acceleration = { x = 0, y = 0 },
@@ -53,7 +53,8 @@ function Bullet:new(x, y, angle, speed)
 	self.pos.y = self.pos.y + (self.pos.y * math.sin(self.angle - math.rad(90)) * 0.12)
 
 	-- collider
-	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y - self.offset.y, self.sprite:getWidth(), self.sprite:getHeight())
+	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y + self.offset.y, self.sprite:getWidth(), self.sprite:getHeight())
+	self.collider:moveTo(self.pos.x, self.pos.y)
 	self.collider['parent'] = self
 
 	-- destroy if out of screen
@@ -63,11 +64,19 @@ function Bullet:new(x, y, angle, speed)
 end
 
 function Bullet:onCollision(other, delta)
-	if other.isEnemy and other.isAlive then
-		self.toRemove = true
-		other:onCollision(self, delta)
-		-- self.isAlive = false
+	if other.isAlive and other.isEnemy then
+		self:die()
 	end
+	-- other.die()
+	-- other:onCollision(self, delta)
+	-- self.isAlive = false
+end
+
+function Bullet:die()
+	self.toRemove = true
+end
+
+function Bullet:update(dt)
 end
 
 return Bullet

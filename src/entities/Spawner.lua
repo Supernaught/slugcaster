@@ -8,7 +8,6 @@
 local Spawner = Object:extend()
 local vector = require "lib.hump.vector"
 local lume = require "lib.lume"
-local timer = require "lib.hump.timer"
 local Enemy = require "src.entities.Enemy"
 
 function Spawner:new()
@@ -19,7 +18,6 @@ function Spawner:new()
 end
 
 function Spawner:update(dt)
-	timer.update(dt)
 end
 
 function Spawner:spawn()

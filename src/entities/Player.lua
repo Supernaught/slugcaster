@@ -1,12 +1,13 @@
 GameObject = require "src.entities.GameObject"
+Bullet = require "src.entities.Bullet"
 
 local Player = GameObject:extend()
 local assets =  require "src.assets"
 
-local gravity = 300
-local flySpeed = 450
+local gravity = 100 * 2
+local flySpeed = 150 * 2
 local leftRightSpeed = 800
-local xDrag = 600
+local xDrag = 300
 
 function Player:new()
 	Player.super.new(self, push:getWidth()/2, push:getHeight()/2)
@@ -16,24 +17,26 @@ function Player:new()
 	-- sprite component
 	self.sprite = assets.player
 	self.offset = { x = 4, y = 4 }
-	local g = anim8.newGrid(8, 8, self.sprite:getWidth(), self.sprite:getHeight())
-	self.animation = anim8.newAnimation(g('1-3',1), 0.1)
+	self.flippedH = false
+	local g = anim8.newGrid(_G.TILE_SIZE, _G.TILE_SIZE, self.sprite:getWidth(), self.sprite:getHeight())
+	self.animation = anim8.newAnimation(g('1-3',1), 1, false)
 
 	-- movable component
 	self.movable = {
 		velocity = { x = 0, y = 0 },
 		acceleration = { x = 0, y = 0 },
 		drag = { x = xDrag, y = -gravity }, -- 80 = gravity
-		maxVelocity = { x = 80, y = 100 },
+		maxVelocity = { x = 80, y = 60 },
 		speed = { x = 0, y = 0 } -- used to assign to acceleration
 	}
 
 	-- shooter component
 	self.shooter = {
-		atkDelay = 0.08,
+		atkDelay = 0.1,
 		canAtk = true,
 		shoot = false
 	}
+	self.shootAngle = 0
 
 
 	return self
@@ -41,7 +44,8 @@ end
 
 function Player:update(dt)
 	shootControls(self,dt)
-	moveControls(self, dt)
+	-- moveControls(self, dt)
+	updateAnimations(self)
 end
 
 function moveControls(self, dt)
@@ -66,10 +70,67 @@ function moveControls(self, dt)
 end
 
 function shootControls(self,dt)
-	local z = love.keyboard.isDown('z')
+	local down = love.keyboard.isDown('down')
+	local up = love.keyboard.isDown('up')
+	local left = love.keyboard.isDown('left')
+	local right = love.keyboard.isDown('right')
 
-	if z then
+	self.shooter.shootUp = false
+	self.shooter.shootDown = false
+	self.shooter.shootLeft = false
+	self.shooter.shootRight = false
+
+	if up then
+		self.movable.acceleration.y = flySpeed
+	elseif down then
+		self.movable.acceleration.y = -flySpeed
+	else
+		self.movable.acceleration.y = 0
+	end
+
+	if left then
+		self.movable.acceleration.x = flySpeed
+	elseif right then
+		self.movable.acceleration.x = -flySpeed
+	else
+		self.movable.acceleration.x = 0
+	end
+
+	if left or up or down or right then
 		self.shooter.shoot = true
+	end
+
+	if left then
+		self.shootAngle = -90
+
+		if up then self.shootAngle = self.shootAngle + 45
+		elseif down then
+			self.shootAngle = self.shootAngle - 45
+		end
+	elseif right then
+		self.shootAngle = 90
+
+		if up then
+			self.shootAngle = self.shootAngle - 45
+		elseif down then
+			self.shootAngle = self.shootAngle + 45
+		end
+	elseif up then
+		self.shootAngle = 0
+	elseif down then
+		self.shootAngle = 180
+	end
+end
+
+function Player:shoot(dt)
+	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
+end
+
+function updateAnimations(self)
+	if self.movable.acceleration.x < 0 then
+		self.flippedH = true
+	elseif self.movable.acceleration.x > 0 then
+		self.flippedH = false
 	end
 end
 

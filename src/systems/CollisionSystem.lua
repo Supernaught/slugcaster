@@ -21,6 +21,8 @@ function CollisionSystem:process(e, dt)
 	local vel = e.movable.velocity
 	local col = e.collider
 
+	-- e.collider:draw()
+
 	-- update rotation
 	col:setRotation(e.angle)
 
@@ -30,7 +32,7 @@ function CollisionSystem:process(e, dt)
 	-- check collisions
 	for col2, delta in pairs(HC:collisions(col)) do
 		col.parent:onCollision(col2.parent, delta)
-		-- col2.parent:onCollision(col.parent, delta)
+		col2.parent:onCollision(col.parent, delta)
 	end
 
 	if col.toRemove then

@@ -32,14 +32,16 @@ camera = nil
 local scale = 1
 
 function love.load()
+	_G.TILE_SIZE = 8
 	scale = love.graphics.getWidth() / 160
 	setupPushScreen()
 	Gamestate.registerEvents()
-	Gamestate.switch(MenuState)
-	-- Gamestate.switch(PlayState)
+	-- Gamestate.switch(MenuState)
+	Gamestate.switch(PlayState)
 end
 
 function love.update(dt)
+	screen:update(dt)
 	timer.update(dt)
 end
 
