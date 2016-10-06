@@ -18,8 +18,10 @@ function Player:new()
 	self.sprite = assets.player
 	self.offset = { x = 4, y = 4 }
 	self.flippedH = false
-	local g = anim8.newGrid(_G.TILE_SIZE, _G.TILE_SIZE, self.sprite:getWidth(), self.sprite:getHeight())
-	self.animation = anim8.newAnimation(g('1-3',1), 1, false)
+	local g = anim8.newGrid(12, 12, self.sprite:getWidth(), self.sprite:getHeight())
+	shootRight = anim8.newAnimation(g('1-5',1), .05, false)
+	shootBottomRight = anim8.newAnimation(g('1-5',2), .05, false)
+	self.animation = shootRight
 
 	-- movable component
 	self.movable = {
@@ -101,6 +103,7 @@ function shootControls(self,dt)
 
 	if left or up or down or right then
 		self.shooter.shoot = true
+		self.animation = shootRight
 	end
 
 	if left then
@@ -117,6 +120,7 @@ function shootControls(self,dt)
 			self.shootAngle = self.shootAngle - 45
 		elseif down then
 			self.shootAngle = self.shootAngle + 45
+			self.animation = shootBottomRight
 		end
 	elseif up then
 		self.shootAngle = 0
@@ -153,9 +157,9 @@ end
 
 function updateAnimations(self)
 	if self.movable.acceleration.x < 0 then
-		self.flippedH = true
-	elseif self.movable.acceleration.x > 0 then
 		self.flippedH = false
+	elseif self.movable.acceleration.x > 0 then
+		self.flippedH = true
 	end
 end
 
