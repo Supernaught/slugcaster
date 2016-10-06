@@ -1,5 +1,4 @@
 -- playstate
-
 playstate = {}
 
 -- entities
@@ -18,7 +17,7 @@ HC = nil
 
 local assets = require "src.assets"
 
-function playstate:init()
+function playstate:enter()
 	player = Player()
 	camera = Camera(0, 0, 1)
 
@@ -42,6 +41,9 @@ function playstate:init()
 end
 
 function playstate:update(dt)
+	if love.keyboard.isDown("q") then
+		Gamestate.switch(menustate)
+	end
 end
 
 function playstate:draw()

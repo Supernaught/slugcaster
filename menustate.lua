@@ -1,13 +1,12 @@
 menustate = {}
 
 local UIText = require "src.entities.UIText"
-local PlayState = require "playstate"
 local assets =  require "src.assets"
 
 local title, pressToPlay
 local dir = 1
 
-function menustate:init()
+function menustate:enter()
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(0,0,10),
 		require("src.systems.DrawUISystem")("hudForeground"),
