@@ -1,5 +1,6 @@
 GameObject = require "src.entities.GameObject"
 Explosion = require "src.entities.Explosion"
+lume = require "lib.lume"
 
 local Enemy = GameObject:extend()
 local assets =  require "src.assets"
@@ -27,7 +28,7 @@ function Enemy:new(x, y, xVel, yVel)
 	-- collider
 	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y - self.offset.y, _G.TILE_SIZE, _G.TILE_SIZE)
 	self.collider['parent'] = self
-	
+
 	-- destroy off screen
 	self.destroyOffScreen = true
 
@@ -49,7 +50,17 @@ end
 function Enemy:die()
 	self.toRemove = true
 
-	-- world:add(Explosion(self.pos.x, self.pos.y))
+	-- add 5 explosions
+	love.graphics.setColor(215, 232, 148)
+	love.graphics.setLineStyle('rough')
+	love.graphics.circle("fill", self.pos.x, self.pos.y, 15, 100 )
+
+	for i=5,1,-1
+	do
+		timer.after((lume.random(0, 0.12)), function()
+			world:add(Explosion(self.pos.x + lume.random(-10, 10), self.pos.y + lume.random(-10, 10)))
+		end)
+	end
 
 	screen:setShake(6)
 	-- screen:setRotation(0.05)

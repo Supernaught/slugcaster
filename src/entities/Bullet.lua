@@ -46,7 +46,7 @@ function Bullet:new(x, y, angle, speed)
 	-- randomize a bit
 	-- self.pos.x = self.pos.x + lume.random(5,10)
 	-- self.pos.y = self.pos.y + lume.random(5,10)
-	self.angle = self.angle + lume.random(-0.05,0.05)
+	self.angle = self.angle + lume.random(-0.1,0.1)
 
 	-- add small padding in front of player
 	self.pos.x = self.pos.x + (self.pos.x * math.cos(self.angle - math.rad(90)) * 0.12)
