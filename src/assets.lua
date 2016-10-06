@@ -6,7 +6,7 @@ love.graphics.setDefaultFilter("nearest", "nearest")
 assets.player = love.graphics.newImage("assets/player.png")
 assets.bullet = love.graphics.newImage("assets/bullet.png")
 assets.enemy = love.graphics.newImage("assets/enemy.png")
-assets.shells = love.graphics.newImage("assets/shells.png")
+assets.shells = love.graphics.newImage("assets/bullet_shell.png")
 
 -- Fonts
 assets.font_lg = love.graphics.newFont("assets/press_start.ttf", 24)

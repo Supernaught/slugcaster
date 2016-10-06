@@ -67,7 +67,7 @@ function moveControls(self, dt)
 		self.movable.acceleration.x = -leftRightSpeed
 	elseif right and not left then
 		self.movable.acceleration.x = leftRightSpeed
-	else 
+	else
 		self.movable.acceleration.x = 0
 	end
 end
@@ -129,20 +129,20 @@ function setupParticles()
 	bulletPs = love.graphics.newParticleSystem(assets.shells, 100)
     -- bulletPs:setEmissionRate(400)
 	bulletPs:setPosition(push:getWidth()/2, push:getHeight()/2)
-	bulletPs:setParticleLifetime(0.5, 2)
+	bulletPs:setParticleLifetime(0.3, 0.5)
     -- bulletPs:setSizeVariation(0.5)
     bulletPs:setDirection(1.5*3.14)
-    bulletPs:setSpread(3.14/1.5)
-    bulletPs:setSpeed(10, 50)
-    bulletPs:setLinearAcceleration(0, 80)
+    bulletPs:setSpread(3.14/3)
+    bulletPs:setSpeed(100, 150)
+    bulletPs:setLinearAcceleration(0, 600)
     bulletPs:setLinearDamping(0.5)
-    bulletPs:setSpin(0, 3)
+    bulletPs:setSpin(3, 15)
     bulletPs:setRotation(0, 2*3.14)
     bulletPs:setInsertMode('random')
 end
 
 function Player:shoot(dt)
-	-- bulletPs:setPosition(self.pos.x, self.pos.y)
+	bulletPs:setPosition(self.pos.x, self.pos.y)
 	bulletPs:emit(1)
 	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
 end

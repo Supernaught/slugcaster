@@ -21,11 +21,11 @@ local assets = require "src.assets"
 function playstate:init()
 	player = Player()
 	camera = Camera(0, 0, 1)
-	
+
 	HC = HClib.new(150)
 
 	self.world = tiny.world(
-		require("src.systems.BGColorSystem")(156,189,22),
+		require("src.systems.BGColorSystem")(32,70,49),
 		require("src.systems.UpdateSystem")(),
 		require("src.systems.MoveTowardsAngleSystem")(),
 		require("src.systems.CollisionSystem")(),
@@ -46,7 +46,7 @@ end
 
 function playstate:draw()
 	push:apply("start")
-	push:apply("end")	
+	push:apply("end")
 
 	love.graphics.print("FPS: " .. tostring(love.timer.getFPS()) .. "\nEntities: " .. world:getEntityCount(), 5, 5)
 end
