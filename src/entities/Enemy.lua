@@ -60,7 +60,7 @@ function Enemy:die()
 
 	for i=5,1,-1
 	do
-		timer.after((lume.random(0, 0.12)), function()
+		timer.after((lume.random(0, .25)), function()
 			world:add(Explosion(self.pos.x + lume.random(-10, 10), self.pos.y + lume.random(-10, 10)))
 		end)
 	end
