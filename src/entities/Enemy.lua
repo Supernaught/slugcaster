@@ -28,6 +28,9 @@ function Enemy:new(x, y, xVel, yVel)
 	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y - self.offset.y, _G.TILE_SIZE, _G.TILE_SIZE)
 	self.collider['parent'] = self
 	
+	-- destroy off screen
+	self.destroyOffScreen = true
+
 	return self
 end
 

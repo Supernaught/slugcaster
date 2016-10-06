@@ -10,7 +10,7 @@ local DestroyOffScreenSystem = tiny.processingSystem(class "DestroyOffScreenSyst
 DestroyOffScreenSystem.filter = tiny.requireAll("destroyOffScreen", "pos")
 
 function DestroyOffScreenSystem:process(e, dt)
-	if (e.pos.x < 0 or e.pos.x > push:getWidth()) or (e.pos.y < 0 or e.pos.y > push:getHeight()) then
+	if (e.pos.x < -100 or e.pos.x > (push:getWidth()+100)) or (e.pos.y < -100 or e.pos.y > (push:getHeight()+100)) then
 		e.isAlive = false
 		world:remove(e)
 	end

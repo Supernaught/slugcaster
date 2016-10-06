@@ -16,6 +16,8 @@ local score = 0
 
 HC = nil
 
+local assets = require "src.assets"
+
 function playstate:init()
 	player = Player()
 	camera = Camera(0, 0, 1)
@@ -39,9 +41,13 @@ function playstate:init()
 	world:add(Spawner())
 end
 
+function playstate:update(dt)
+end
+
 function playstate:draw()
 	push:apply("start")
 	push:apply("end")	
+
 	love.graphics.print("FPS: " .. tostring(love.timer.getFPS()) .. "\nEntities: " .. world:getEntityCount(), 5, 5)
 end
 
