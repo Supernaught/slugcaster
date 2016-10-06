@@ -22,6 +22,7 @@ function playstate:enter()
 	player = Player()
 	camera = Camera(0, 0, 1)
 
+	timer.clear()
 
 	self.setupEnemyCorpseParticles()
 

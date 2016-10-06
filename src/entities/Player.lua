@@ -205,7 +205,7 @@ function updateAnimations(self)
 end
 
 function Player:onCollision(other, delta)
-	if other.isEnemy then
+	if other.isEnemy and other.isAlive then
 		self:die()
 	end
 end
