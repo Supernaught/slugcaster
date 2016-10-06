@@ -50,8 +50,8 @@ end
 function Enemy:die()
 	self.toRemove = true
 
-	corpsePs:setPosition(self.pos.x, self.pos.y)
-	corpsePs:emit(math.random(1,3))
+	smokePs:setPosition(self.pos.x, self.pos.y)
+	smokePs:emit(math.random(1,3))
 
 	-- add 5 explosions
 	love.graphics.setColor(215, 232, 148)
@@ -60,7 +60,7 @@ function Enemy:die()
 
 	for i=5,1,-1
 	do
-		timer.after((lume.random(0, .25)), function()
+		timer.after((lume.random(0, .2)), function()
 			world:add(Explosion(self.pos.x + lume.random(-10, 10), self.pos.y + lume.random(-10, 10)))
 		end)
 	end

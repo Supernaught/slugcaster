@@ -8,6 +8,7 @@ assets.bullet = love.graphics.newImage("assets/bullet.png")
 assets.enemy = love.graphics.newImage("assets/enemy.png")
 assets.shells = love.graphics.newImage("assets/bullet_shell.png")
 assets.explosion = love.graphics.newImage("assets/explosion.png")
+assets.smoke = love.graphics.newImage("assets/smoke.png")
 
 -- Fonts
 assets.font_lg = love.graphics.newFont("assets/press_start.ttf", 24)
