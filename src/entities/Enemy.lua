@@ -50,6 +50,9 @@ end
 function Enemy:die()
 	self.toRemove = true
 
+	corpsePs:setPosition(self.pos.x, self.pos.y)
+	corpsePs:emit(10)
+
 	-- add 5 explosions
 	love.graphics.setColor(215, 232, 148)
 	love.graphics.setLineStyle('rough')
@@ -62,8 +65,8 @@ function Enemy:die()
 		end)
 	end
 
-	screen:setShake(6)
-	-- screen:setRotation(0.05)
+	screen:setShake(12)
+	screen:setRotation(0.05)
 end
 
 return Enemy

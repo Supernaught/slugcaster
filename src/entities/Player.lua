@@ -40,7 +40,7 @@ function Player:new()
 	}
 	self.shootAngle = 0
 
-	setupParticles()
+	self.setupParticles()
 
 	return self
 end
@@ -129,7 +129,7 @@ function shootControls(self,dt)
 	end
 end
 
-function setupParticles()
+function Player:setupParticles()
 	bulletPs = love.graphics.newParticleSystem(assets.shells, 100)
     -- bulletPs:setEmissionRate(400)
 	bulletPs:setPosition(push:getWidth()/2, push:getHeight()/2)
@@ -146,6 +146,7 @@ function setupParticles()
 end
 
 function Player:shoot(dt)
+	screen:setShake(1.5)
 	bulletPs:setPosition(self.pos.x, self.pos.y)
 	bulletPs:emit(1)
 	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
