@@ -51,7 +51,7 @@ function Enemy:die()
 	self.toRemove = true
 
 	corpsePs:setPosition(self.pos.x, self.pos.y)
-	corpsePs:emit(10)
+	corpsePs:emit(math.random(1,3))
 
 	-- add 5 explosions
 	love.graphics.setColor(215, 232, 148)

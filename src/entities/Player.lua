@@ -136,6 +136,8 @@ function shootControls(self,dt)
 	elseif down then
 		self.shootAngle = 180
 		self.animation = shootBottom
+	else
+		self.animation = shootRight
 	end
 end
 
@@ -160,6 +162,29 @@ function Player:shoot(dt)
 	bulletPs:setPosition(self.pos.x, self.pos.y)
 	bulletPs:emit(1)
 	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
+	love.graphics.setColor(215, 232, 148)
+	love.graphics.setLineStyle('rough')
+
+	local flashX = 0
+	local flashY = 0
+
+	-- Check shoot direction
+	if love.keyboard.isDown('right') then
+		flashX = 12
+	elseif love.keyboard.isDown('left') then
+		flashX = -12
+	end
+
+	if love.keyboard.isDown('up') then
+		flashY = -12
+	elseif love.keyboard.isDown('down') then
+		flashY = 12
+	end
+
+	-- Draw gun flash in position flashX and flashY
+	love.graphics.circle("fill", self.pos.x + math.random(-2,2) + flashX
+														 , self.pos.y + math.random(-2,2) + flashY
+														 , 5 + math.random(1,2), 100 )
 end
 
 function Player:draw()
