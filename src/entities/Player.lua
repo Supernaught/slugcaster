@@ -43,6 +43,11 @@ function Player:new()
 	}
 	self.shootAngle = 0
 
+	-- collider
+	self.collider = HC:rectangle(self.pos.x - 6, self.pos.y + 6, 3,3)
+	self.collider:moveTo(self.pos.x, self.pos.y)
+	self.collider['parent'] = self
+
 	self.setupParticles()
 
 	return self
@@ -197,6 +202,20 @@ function updateAnimations(self)
 	elseif self.movable.acceleration.x > 0 then
 		self.flippedH = true
 	end
+end
+
+function Player:onCollision(other, delta)
+	if other.isEnemy then
+		self:die()
+	end
+end
+
+function Player:die()
+	print('game over')
+
+	screen:setShake(20)
+	screen:setRotation(0.1)
+	Gamestate.switch(menustate)
 end
 
 return Player

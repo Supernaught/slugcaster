@@ -18,10 +18,10 @@ HC = nil
 local assets = require "src.assets"
 
 function playstate:enter()
+	HC = HClib.new(150)
 	player = Player()
 	camera = Camera(0, 0, 1)
 
-	HC = HClib.new(150)
 
 	self.setupEnemyCorpseParticles()
 
@@ -29,6 +29,7 @@ function playstate:enter()
 		require("src.systems.BGColorSystem")(32,70,49),
 		require("src.systems.UpdateSystem")(),
 		require("src.systems.MoveTowardsAngleSystem")(),
+		require("src.systems.MoveTowardsTargetSystem")(),
 		require("src.systems.CollisionSystem")(),
 		require("src.systems.MovableSystem")(),
 		require("src.systems.SpriteSystem")(),

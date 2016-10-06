@@ -1,6 +1,7 @@
+local lume = require "lib.lume"
+
 GameObject = require "src.entities.GameObject"
 Explosion = require "src.entities.Explosion"
-lume = require "lib.lume"
 
 local Enemy = GameObject:extend()
 local assets =  require "src.assets"
