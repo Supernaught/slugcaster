@@ -53,7 +53,7 @@ function Bullet:new(x, y, angle, speed)
 	self.pos.y = self.pos.y + (self.pos.y * math.sin(self.angle - math.rad(90)) * 0.12)
 
 	-- collider
-	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y + self.offset.y, self.sprite:getWidth(), self.sprite:getHeight())
+	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y + self.offset.y, self.sprite:getWidth() / 1.4, self.sprite:getHeight())
 	self.collider:moveTo(self.pos.x, self.pos.y)
 	self.collider['parent'] = self
 

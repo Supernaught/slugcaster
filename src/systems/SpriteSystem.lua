@@ -9,6 +9,10 @@ function SpriteSystem:postProcess(dt)
 end
 
 function SpriteSystem:process(e, dt)
+    if e.visible == false then
+        return
+    end
+
     local an = e.animation
 
     local alpha = e.alpha or 1

@@ -6,6 +6,7 @@ function GameObject:new(x,y)
 	self.name = "GameObject"
 	self.isAlive = true
 	self.toRemove = false
+	self.visible = true
 
 	-- transform
 	self.pos = { x = x or 0, y = y or 0 }
