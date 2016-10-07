@@ -59,6 +59,7 @@ function Player:update(dt)
 	updateAnimations(self)
 
     bulletPs:update(dt)
+    newPs:update(dt)
 end
 
 function moveControls(self, dt)
@@ -160,12 +161,27 @@ function Player:setupParticles()
     bulletPs:setSpin(3, 15)
     bulletPs:setRotation(0, 2*3.14)
     bulletPs:setInsertMode('random')
+
+	newPs = love.graphics.newParticleSystem(assets.shells, 100)
+	newPs:setPosition(push:getWidth()/2, push:getHeight()/2)
+	newPs:setParticleLifetime(0.3, 0.5)
+    newPs:setDirection(1.5*3.14)
+    newPs:setSpread(3.14/3)
+    newPs:setSpeed(300, 350)
+    newPs:setLinearAcceleration(0, 600)
+    newPs:setLinearDamping(0.5)
+    newPs:setSpin(3, 15)
+    newPs:setRotation(0, 2*3.14)
+    newPs:setInsertMode('random')
 end
 
 function Player:shoot(dt)
 	screen:setShake(1.5)
 	bulletPs:setPosition(self.pos.x, self.pos.y)
 	bulletPs:emit(1)
+
+	newPs:setPosition(self.pos.x, self.pos.y)
+	newPs:emit(1)
 	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
 	love.graphics.setColor(215, 232, 148)
 	love.graphics.setLineStyle('rough')
@@ -194,6 +210,7 @@ end
 
 function Player:draw()
     love.graphics.draw(bulletPs, 0, 0, 0, 1, 1)
+    love.graphics.draw(newPs, 0, 0, 0, 1, 1)
 end
 
 function updateAnimations(self)

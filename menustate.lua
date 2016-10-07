@@ -8,6 +8,8 @@ local title, pressToPlay
 local dir = 1
 
 function menustate:enter()
+	timer.clear()
+	
 	local xSpeed = -5
 	local frontBg = MovingParallaxBG(assets.bg, 0, 'floatBottom', xSpeed)
 	local frontBg2 = MovingParallaxBG(assets.bg, push:getWidth(), 'floatBottom', xSpeed, frontBg)
@@ -18,6 +20,7 @@ function menustate:enter()
 
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
+		require("src.systems.BlinkingSystem")(),
 		require("src.systems.UpdateSystem")(),
 		require("src.systems.SpriteSystem")(),
 		require("src.systems.MovableSystem")(),
