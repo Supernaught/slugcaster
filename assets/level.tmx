@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="14" tilewidth="12" tileheight="12" nextobjectid="1">
+ <tileset firstgid="1" name="GBJAM_Tiles" tilewidth="12" tileheight="12" tilecount="9" columns="3">
+  <image source="../../GBJAM_Tiles.png" width="36" height="36"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="15" height="14">
+  <data encoding="csv">
+1,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
+4,5,5,5,5,5,5,5,5,5,5,5,5,5,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+4,0,0,0,0,0,0,0,0,0,0,0,0,0,6,
+7,0,0,0,0,0,0,0,0,0,0,0,0,0,9
+</data>
+ </layer>
+</map>

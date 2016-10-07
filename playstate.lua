@@ -24,7 +24,7 @@ function playstate:enter()
 
 	timer.clear()
 
-	self.setupEnemyCorpseParticles()
+	self.setupExplosionSmokeParticles()
 
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
@@ -52,19 +52,19 @@ function playstate:update(dt)
 	smokePs:update(dt)
 end
 
-function playstate:setupEnemyCorpseParticles()
+function playstate:setupExplosionSmokeParticles()
 	smokePs = love.graphics.newParticleSystem(assets.smoke, 100)
 	smokePs:setPosition(push:getWidth()/2, push:getHeight()/2)
 	smokePs:setParticleLifetime(0.5, 1.2)
-    smokePs:setDirection(1.5*3.14)
-    smokePs:setSpread(3.14/3)
-    smokePs:setSpeed(10, 800)
-    smokePs:setLinearAcceleration(0, -600)
-    smokePs:setLinearDamping(50)
-    smokePs:setSpin(0, 30)
-    smokePs:setRotation(0, 2*3.14)
-		smokePs:setSizes(.5, 0)
-    smokePs:setInsertMode('random')
+  smokePs:setDirection(1.5*3.14)
+  smokePs:setSpread(3.14/3)
+  smokePs:setSpeed(10, 800)
+  smokePs:setLinearAcceleration(0, -600)
+  smokePs:setLinearDamping(50)
+  smokePs:setSpin(0, 30)
+  smokePs:setRotation(0, 2*3.14)
+	smokePs:setSizes(.5, 0)
+  smokePs:setInsertMode('random')
 end
 
 function playstate:draw()

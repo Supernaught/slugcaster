@@ -59,6 +59,7 @@ function Player:update(dt)
 	updateAnimations(self)
 
     bulletPs:update(dt)
+		trailPs:update(dt)
 end
 
 function moveControls(self, dt)
@@ -144,6 +145,11 @@ function shootControls(self,dt)
 	else
 		self.animation = shootRight
 	end
+
+	if down then
+		trailPs:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 12)
+		trailPs:emit(1)
+	end
 end
 
 function Player:setupParticles()
@@ -151,15 +157,27 @@ function Player:setupParticles()
     -- bulletPs:setEmissionRate(400)
 	bulletPs:setPosition(push:getWidth()/2, push:getHeight()/2)
 	bulletPs:setParticleLifetime(0.3, 0.5)
-    -- bulletPs:setSizeVariation(0.5)
-    bulletPs:setDirection(1.5*3.14)
-    bulletPs:setSpread(3.14/3)
-    bulletPs:setSpeed(100, 150)
-    bulletPs:setLinearAcceleration(0, 600)
-    bulletPs:setLinearDamping(0.5)
-    bulletPs:setSpin(3, 15)
-    bulletPs:setRotation(0, 2*3.14)
-    bulletPs:setInsertMode('random')
+  -- bulletPs:setSizeVariation(0.5)
+  bulletPs:setDirection(1.5*3.14)
+  bulletPs:setSpread(3.14/3)
+  bulletPs:setSpeed(100, 150)
+  bulletPs:setLinearAcceleration(0, 600)
+  bulletPs:setLinearDamping(0.5)
+  bulletPs:setSpin(3, 15)
+  bulletPs:setRotation(0, 2*3.14)
+  bulletPs:setInsertMode('random')
+
+	trailPs = love.graphics.newParticleSystem(assets.smoke, 100)
+	trailPs:setPosition(push:getWidth()/2, push:getHeight()/2)
+	trailPs:setParticleLifetime(0.2, 0.4)
+  trailPs:setDirection(1.5*3.14)
+  trailPs:setSpread(3.14/3)
+  trailPs:setLinearAcceleration(0, -400)
+  trailPs:setLinearDamping(50)
+  trailPs:setSpin(0, 30)
+  trailPs:setRotation(0, 2*3.14)
+	trailPs:setSizes(math.random(0.4, 0.5), 0)
+  trailPs:setInsertMode('random')
 end
 
 function Player:shoot(dt)
@@ -184,6 +202,8 @@ function Player:shoot(dt)
 		flashY = -12
 	elseif love.keyboard.isDown('down') then
 		flashY = 12
+		-- trailPs:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 12)
+		-- trailPs:emit(1)
 	end
 
 	-- Draw gun flash in position flashX and flashY
@@ -194,6 +214,7 @@ end
 
 function Player:draw()
     love.graphics.draw(bulletPs, 0, 0, 0, 1, 1)
+		love.graphics.draw(trailPs, 0, 0, 0, 1, 1)
 end
 
 function updateAnimations(self)
