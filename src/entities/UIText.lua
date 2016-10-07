@@ -7,6 +7,7 @@ function UIText:drawHud()
 		love.graphics.setFont(love.graphics.newFont(self.fontSize))
 	end
 
+	love.graphics.setColor(215,232,148)
 	love.graphics.printf(self.text, self.pos.x, self.pos.y, self.width, self.align)
 end
 
