@@ -11,6 +11,7 @@ BlinkingSystem.filter = tiny.requireAll("blinking")
 
 function BlinkingSystem:onAdd(e)
 	timer.script(function(wait)
+	    wait(e.blinkDelay)
 	    while true do
 	        self.blink(e)
 	        wait(e.blinkDelay)

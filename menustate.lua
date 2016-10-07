@@ -9,7 +9,7 @@ local dir = 1
 
 function menustate:enter()
 	timer.clear()
-	
+
 	local xSpeed = -5
 	local frontBg = MovingParallaxBG(assets.bg, 0, 'floatBottom', xSpeed)
 	local frontBg2 = MovingParallaxBG(assets.bg, push:getWidth(), 'floatBottom', xSpeed, frontBg)
@@ -17,6 +17,10 @@ function menustate:enter()
 	local xSpeed = -15
 	local backBg = MovingParallaxBG(assets.bg2, 0, 'floatBottom', xSpeed)
 	local backBg2 = MovingParallaxBG(assets.bg2, push:getWidth(), 'floatBottom', xSpeed, backBg)
+
+	local pressStartUI = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
+	pressStartUI.blinking = true
+	pressStartUI.blinkDelay = 0.5
 
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
@@ -29,8 +33,8 @@ function menustate:enter()
 		frontBg2,
 		backBg,
 		backBg2,
-		UIText("GBJAM5", 0, push:getHeight() * 0.2, push:getWidth(), nil, nil, assets.font_md),
-		UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
+		UIText("SLUGCASTER", 0, push:getHeight() * 0.2, push:getWidth(), nil, nil, assets.font_sm),
+		pressStartUI
 	)
 
 	world = self.world

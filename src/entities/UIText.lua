@@ -1,6 +1,10 @@
 local UIText = Object:extend()
 
 function UIText:drawHud()
+	if self.visible == false then
+        return
+    end
+    
 	if self.font then
 		love.graphics.setFont(self.font)
 	else
@@ -22,6 +26,8 @@ function UIText:new(text, x, y, width, align, fontSize, font)
 	self.font = font or nil
 	self.hudForeground = true
 	self.inCamera = false
+
+	self.visible = true
 
 	return self
 end

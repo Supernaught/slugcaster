@@ -5,6 +5,8 @@ playstate = {}
 local Player = require "src.entities.Player"
 local Enemy = require "src.entities.Enemy"
 local Spawner = require "src.entities.Spawner"
+local EnemyBullet = require "src.entities.EnemyBullet"
+
 -- libs
 local Camera = require "lib.hump.camera"
 local HClib = require "lib.hc"
@@ -37,6 +39,7 @@ function playstate:enter()
 		require("src.systems.ShooterSystem")(),
 		require("src.systems.DestroyOffScreenSystem")(),
 		require("src.systems.DrawUISystem")("hudForeground"),
+		EnemyBullet(10,10),
 		player
 	)
 
@@ -73,6 +76,10 @@ function playstate:draw()
 	push:apply("end")
 
 	love.graphics.print("FPS: " .. tostring(love.timer.getFPS()) .. "\nEntities: " .. world:getEntityCount(), 5, 5)
+end
+
+function playstate.getPlayer()
+	return player
 end
 
 return playstate

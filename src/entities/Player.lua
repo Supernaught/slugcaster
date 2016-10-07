@@ -8,6 +8,7 @@ local gravity = 100 * 2
 local flySpeed = 150 * 2
 local leftRightSpeed = 800
 local xDrag = 300
+local maxVelY = 60
 
 function Player:new()
 	Player.super.new(self, push:getWidth()/2, push:getHeight()/2)
@@ -31,7 +32,7 @@ function Player:new()
 		velocity = { x = 0, y = 0 },
 		acceleration = { x = 0, y = 0 },
 		drag = { x = xDrag, y = -gravity }, -- 80 = gravity
-		maxVelocity = { x = 80, y = 60 },
+		maxVelocity = { x = 80, y = maxVelY },
 		speed = { x = 0, y = 0 } -- used to assign to acceleration
 	}
 
@@ -103,9 +104,9 @@ function shootControls(self,dt)
 	end
 
 	if left then
-		self.movable.acceleration.x = flySpeed
+		self.movable.acceleration.x = flySpeed/2
 	elseif right then
-		self.movable.acceleration.x = -flySpeed
+		self.movable.acceleration.x = -flySpeed/2
 	else
 		self.movable.acceleration.x = 0
 	end
@@ -114,6 +115,10 @@ function shootControls(self,dt)
 		self.shooter.shoot = true
 		self.animation = shootRight
 	end
+
+	print(maxVelY)
+	print(self.movable.maxVelocity.y)
+	self.movable.maxVelocity.y = maxVelY
 
 	if left then
 		self.shootAngle = -90
@@ -124,6 +129,8 @@ function shootControls(self,dt)
 		elseif down then
 			self.shootAngle = self.shootAngle - 45
 			self.animation = shootBottomRight
+		else
+			self.movable.maxVelocity.y = maxVelY/10
 		end
 	elseif right then
 		self.shootAngle = 90
@@ -135,6 +142,8 @@ function shootControls(self,dt)
 		elseif down then
 			self.shootAngle = self.shootAngle + 45
 			self.animation = shootBottomRight
+		else
+			self.movable.maxVelocity.y = maxVelY/10
 		end
 	elseif up then
 		self.shootAngle = 0
@@ -176,13 +185,18 @@ function Player:setupParticles()
 end
 
 function Player:shoot(dt)
+	-- shoot
+	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
+
+	-- fx
 	screen:setShake(1.5)
+
 	bulletPs:setPosition(self.pos.x, self.pos.y)
 	bulletPs:emit(1)
 
 	newPs:setPosition(self.pos.x, self.pos.y)
 	newPs:emit(1)
-	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
+
 	love.graphics.setColor(215, 232, 148)
 	love.graphics.setLineStyle('rough')
 
@@ -222,7 +236,8 @@ function updateAnimations(self)
 end
 
 function Player:onCollision(other, delta)
-	if other.isEnemy and other.isAlive then
+	if self.isAlive and (other.isEnemy or other.isEnemyBullet) and other.isAlive then
+		other:die()
 		self:die()
 	end
 end
@@ -230,9 +245,19 @@ end
 function Player:die()
 	print('game over')
 
-	screen:setShake(20)
-	screen:setRotation(0.1)
-	Gamestate.switch(menustate)
+	screen:setShake(70)
+	-- screen:setRotation(0.1)
+
+	for i=5,1,-1
+	do
+		timer.after((lume.random(0, .2)), function()
+			world:add(Explosion(self.pos.x + lume.random(-10, 10), self.pos.y + lume.random(-10, 10)))
+		end)
+	end
+
+	self.toRemove = true
+
+	timer.after(2, function() Gamestate.switch(menustate) end)
 end
 
 return Player
