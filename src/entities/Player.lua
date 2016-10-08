@@ -156,9 +156,10 @@ function shootControls(self,dt)
 	end
 
 	if down then
-		trailPs:setSizes(math.random(0.4, 0.5), 0)
 		trailPs:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 10)
 		trailPs:emit(1)
+		boost_sfx = assets.boost_sfx:clone()
+		boost_sfx:play()
 	end
 end
 
@@ -186,6 +187,7 @@ function Player:setupParticles()
 	trailPs:setColors(82, 127, 57, 255)
   trailPs:setRotation(0, 2*3.14)
   trailPs:setInsertMode('random')
+	trailPs:setSizes(math.random(0.4, 0.5), 0)
 end
 
 function Player:shoot(dt)
