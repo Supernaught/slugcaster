@@ -38,6 +38,10 @@ function MovingParallaxBG:new(sprite, x, y, speed, pair)
 end
 
 function MovingParallaxBG:update(dt)
+	if pair then
+		self.pos.x = pair.sprite:getWidth() - 2
+	end
+
 	if self.pos.x + push:getWidth() <= 0 then
 		if pair then
 			self.pos.x = pair.pos.x + pair.sprite.getWidth()

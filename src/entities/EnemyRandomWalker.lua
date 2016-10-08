@@ -15,10 +15,10 @@ function EnemyRandomWalker:new()
 	-- TODO: change assets here
 
 	-- sprite/animation component
-	-- self.sprite = assets.enemy
-	-- self.offset = { x = 4, y = 4 }
-	-- local g = anim8.newGrid(_G.TILE_SIZE, _G.TILE_SIZE, self.sprite:getWidth(), self.sprite:getHeight())
-	-- self.animation = anim8.newAnimation(g('1-3',1), 0.1)
+	self.sprite = assets.jellyfish
+	self.offset = { x = 6, y = 6 }
+	local g = anim8.newGrid(12, 12, self.sprite:getWidth(), self.sprite:getHeight())
+	self.animation = anim8.newAnimation(g('1-5',1), 0.1)
 
 	-- move towards target component
 	self.moveTowardsTarget = true
@@ -43,6 +43,8 @@ function EnemyRandomWalker:setupBehavior()
 end
 
 function EnemyRandomWalker:update(dt)
+	EnemyRandomWalker.super.update(self, dt)
+
 	if self.isInTargetPos then
 		self.targetPos.x = lume.random(0,push:getWidth())
 		self.targetPos.y = lume.random(0,push:getHeight())

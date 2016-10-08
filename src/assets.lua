@@ -14,6 +14,9 @@ assets.bg = love.graphics.newImage("assets/bg.png")
 assets.bg2 = love.graphics.newImage("assets/bg2.png")
 
 assets.skull = love.graphics.newImage("assets/skull.png")
+assets.brood_jellyfish = love.graphics.newImage("assets/brood_jellyfish.png")
+assets.jellyfish = love.graphics.newImage("assets/jellyfish.png")
+assets.water = love.graphics.newImage("assets/water_spritesheet.png")
 
 -- SFX
 assets.bullet_sfx_decoder = love.sound.newDecoder("assets/sfx/bullet_sfx.wav")

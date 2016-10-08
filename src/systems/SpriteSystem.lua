@@ -21,10 +21,13 @@ function SpriteSystem:process(e, dt)
     love.graphics.setColor(255, 255, 255, math.max(0, math.min(1, alpha)) * 255)
 
     if an then
+        -- love.graphics.setShader(whiteShader)
+        love.graphics.setColor(254,254,254,254)
         an.flippedH = e.flippedH or false
-        -- an.flippedV = e.flippedV or false
         an:update(dt)
         an:draw(sprite, pos.x, pos.y, r, sx, sy, ox, oy)
+        -- love.graphics.setShader()
+
     elseif sprite then
         love.graphics.draw(sprite, pos.x, pos.y, r, sx, sy, ox, oy)
     end

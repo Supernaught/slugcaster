@@ -13,7 +13,6 @@ function EnemyWalker:new()
 
 
 	-- TODO: change assets here
-	self.setupParticles()
 
 	-- sprite/animation component
 	self.sprite = assets.skull
@@ -21,6 +20,7 @@ function EnemyWalker:new()
 	local g = anim8.newGrid(12, 12, self.sprite:getWidth(), self.sprite:getHeight())
 	self.animation = anim8.newAnimation(g('1-4',1), 0.1)
 
+	self.setupParticles()
 	self:setupBehavior()
 
 	return self
@@ -64,24 +64,24 @@ function EnemyWalker:setupBehavior()
 end
 
 function EnemyWalker:update(dt)
-		skullSmoke:update(dt)
-		skullSmoke:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 12)
-		skullSmoke:emit(1)
+		skullTrailPs:update(dt)
+		skullTrailPs:setPosition(self.pos.x, self.pos.y)
+		skullTrailPs:emit(5)
 end
 
 function EnemyWalker:setupParticles()
-	skullSmoke = love.graphics.newParticleSystem(assets.smoke, 100)
-	skullSmoke:setPosition(push:getWidth()/2, push:getHeight()/2)
-	skullSmoke:setParticleLifetime(0.2, 0.4)
-  skullSmoke:setDirection(1.5*3.14)
-  skullSmoke:setSpread(3.14/3)
-  skullSmoke:setLinearAcceleration(0, -400)
-  skullSmoke:setLinearDamping(50)
-  skullSmoke:setSpin(0, 30)
-	skullSmoke:setColors(82, 127, 57, 255)
-  skullSmoke:setRotation(0, 2*3.14)
-  skullSmoke:setInsertMode('random')
-	skullSmoke:setSizes(math.random(0.5, 0.8), 0)
+	skullTrailPs = love.graphics.newParticleSystem(assets.smoke, 100)
+	skullTrailPs:setPosition(push:getWidth()/2, push:getHeight()/2)
+	skullTrailPs:setParticleLifetime(0.2, 0.4)
+  skullTrailPs:setDirection(1.5*3.14)
+  skullTrailPs:setSpread(3.14/3)
+  skullTrailPs:setLinearAcceleration(0, -400)
+  skullTrailPs:setLinearDamping(50)
+  skullTrailPs:setSpin(0, 30)
+	skullTrailPs:setColors(82, 127, 57, 255)
+  skullTrailPs:setRotation(0, 2*3.14)
+  skullTrailPs:setInsertMode('random')
+	skullTrailPs:setSizes(math.random(0.5, 0.8), 0)
 end
 
 function EnemyWalker:die()
