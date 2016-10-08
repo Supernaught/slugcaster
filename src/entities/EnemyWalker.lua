@@ -61,6 +61,11 @@ function EnemyWalker:setupBehavior()
 
 	self.movable.velocity.x = xVel
 	self.movable.velocity.y = yVel
+
+	if xVel < 0 then
+		self.flippedH = true
+	end
+
 end
 
 function EnemyWalker:update(dt)
