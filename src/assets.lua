@@ -13,6 +13,8 @@ assets.smoke = love.graphics.newImage("assets/smoke.png")
 assets.bg = love.graphics.newImage("assets/bg.png")
 assets.bg2 = love.graphics.newImage("assets/bg2.png")
 
+assets.water = love.graphics.newImage("assets/water_spritesheet.png")
+
 -- SFX
 assets.bullet_sfx_decoder = love.sound.newDecoder("assets/sfx/bullet_sfx.wav")
 assets.bullet_sfx = love.audio.newSource(assets.bullet_sfx_decoder)

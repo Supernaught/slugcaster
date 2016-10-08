@@ -38,6 +38,18 @@ function love.load()
 	Gamestate.registerEvents()
 	Gamestate.switch(MenuState)
 	-- Gamestate.switch(PlayState)
+
+
+	palette1ShaderCode = [[
+		vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+		{
+			vec4 c = Texel(texture, texture_coords);		
+
+			return vec4(c.r, c.g, c.b, 1.0);
+		}
+	]]
+
+	palette1Shader = love.graphics.newShader(palette1ShaderCode)
 end
 
 function love.update(dt)
@@ -50,7 +62,9 @@ function love.draw()
 	screen:apply()
 	
 	if world and world.update then
+		-- love.graphics.setShader(palette1Shader)
 		world:update(love.timer.getDelta())
+		-- love.graphics.setShader()
 	end
 
 	push:apply("end")

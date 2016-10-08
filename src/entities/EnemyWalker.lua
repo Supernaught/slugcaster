@@ -14,7 +14,6 @@ function EnemyWalker:new()
 
 	-- TODO: change assets here
 
-
 	-- sprite/animation component
 	-- self.sprite = assets.enemy
 	-- self.offset = { x = 4, y = 4 }
@@ -61,6 +60,10 @@ function EnemyWalker:setupBehavior()
 
 	self.movable.velocity.x = xVel
 	self.movable.velocity.y = yVel
+end
+
+function EnemyWalker:update(dt)
+	EnemyWalker.super.update(self, dt)
 end
 
 function EnemyWalker:die()

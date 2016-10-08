@@ -4,8 +4,8 @@ Bullet = require "src.entities.Bullet"
 local Player = GameObject:extend()
 local assets =  require "src.assets"
 
-local gravity = 100 * 2
-local flySpeed = 150 * 2
+local gravity = 100 * 1
+local flySpeed = 150 * 1.5
 local leftRightSpeed = 800
 local xDrag = 300
 local maxVelY = 60
@@ -57,7 +57,7 @@ end
 function Player:update(dt)
 	shootControls(self,dt)
 	-- moveControls(self, dt)
-	updateAnimations(self)
+	self:updateAnimations(self)
 
     bulletPs:update(dt)
 		trailPs:update(dt)
@@ -104,9 +104,9 @@ function shootControls(self,dt)
 	end
 
 	if left then
-		self.movable.acceleration.x = flySpeed/2
+		self.movable.acceleration.x = flySpeed/1.5
 	elseif right then
-		self.movable.acceleration.x = -flySpeed/2
+		self.movable.acceleration.x = -flySpeed/1.5
 	else
 		self.movable.acceleration.x = 0
 	end
@@ -116,8 +116,6 @@ function shootControls(self,dt)
 		self.animation = shootRight
 	end
 
-	print(maxVelY)
-	print(self.movable.maxVelocity.y)
 	self.movable.maxVelocity.y = maxVelY
 
 	if left then
@@ -167,26 +165,26 @@ function Player:setupParticles()
 	bulletPs = love.graphics.newParticleSystem(assets.shells, 100)
 	bulletPs:setPosition(push:getWidth()/2, push:getHeight()/2)
 	bulletPs:setParticleLifetime(0.3, 0.5)
-  bulletPs:setDirection(1.5*3.14)
-  bulletPs:setSpread(3.14/3)
-  bulletPs:setSpeed(100, 150)
-  bulletPs:setLinearAcceleration(0, 600)
-  bulletPs:setLinearDamping(0.5)
-  bulletPs:setSpin(3, 15)
-  bulletPs:setRotation(0, 2*3.14)
-  bulletPs:setInsertMode('random')
+	bulletPs:setDirection(1.5*3.14)
+	bulletPs:setSpread(3.14/3)
+	bulletPs:setSpeed(100, 150)
+	bulletPs:setLinearAcceleration(0, 600)
+	bulletPs:setLinearDamping(0.5)
+	bulletPs:setSpin(3, 15)
+	bulletPs:setRotation(0, 2*3.14)
+	bulletPs:setInsertMode('random')
 
 	trailPs = love.graphics.newParticleSystem(assets.smoke, 100)
 	trailPs:setPosition(push:getWidth()/2, push:getHeight()/2)
 	trailPs:setParticleLifetime(0.2, 0.4)
-  trailPs:setDirection(1.5*3.14)
-  trailPs:setSpread(3.14/3)
-  trailPs:setLinearAcceleration(0, -400)
-  trailPs:setLinearDamping(50)
-  trailPs:setSpin(0, 30)
+	trailPs:setDirection(1.5*3.14)
+	trailPs:setSpread(3.14/3)
+	trailPs:setLinearAcceleration(0, -400)
+	trailPs:setLinearDamping(50)
+	trailPs:setSpin(0, 30)
 	trailPs:setColors(82, 127, 57, 255)
-  trailPs:setRotation(0, 2*3.14)
-  trailPs:setInsertMode('random')
+	trailPs:setRotation(0, 2*3.14)
+	trailPs:setInsertMode('random')
 	trailPs:setSizes(math.random(0.4, 0.5), 0)
 end
 
@@ -235,7 +233,7 @@ function Player:draw()
 		love.graphics.draw(trailPs, 0, 0, 0, 1, 1)
 end
 
-function updateAnimations(self)
+function Player:updateAnimations()
 	if self.movable.acceleration.x < 0 then
 		self.flippedH = false
 	elseif self.movable.acceleration.x > 0 then
@@ -252,6 +250,7 @@ end
 
 function Player:die()
 	print('game over')
+	timer.after(0.1, function() love.timer.sleep(0.1) end)
 
 	screen:setShake(70)
 	-- screen:setRotation(0.1)

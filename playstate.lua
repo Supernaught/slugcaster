@@ -6,6 +6,7 @@ local Player = require "src.entities.Player"
 local Enemy = require "src.entities.Enemy"
 local Spawner = require "src.entities.Spawner"
 local EnemyBullet = require "src.entities.EnemyBullet"
+local Water = require "src.entities.Water"
 
 -- libs
 local Camera = require "lib.hump.camera"
@@ -28,6 +29,8 @@ function playstate:enter()
 
 	self.setupExplosionSmokeParticles()
 
+	self.prepareShaders()
+
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
 		require("src.systems.UpdateSystem")(),
@@ -45,6 +48,13 @@ function playstate:enter()
 
 	world = self.world
 	world:add(Spawner())
+
+	-- add water
+	for i=math.floor(push:getWidth()/12),0,-1
+	do
+		world:add(Water(12 * i,120))
+		-- print(i)
+	end
 end
 
 function playstate:update(dt)
@@ -81,6 +91,26 @@ end
 
 function playstate.getPlayer()
 	return player
+end
+
+function playstate.addScore(n)
+	score = score + n
+end
+
+function playstate.prepareShaders()
+	whiteShaderCode = [[
+		vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+		{
+			vec4 c = Texel(texture, texture_coords);		
+			if(c.a != 0){
+				return vec4(1,1,1,1);
+			}
+
+			return c;
+		}
+	]]
+
+	whiteShader = love.graphics.newShader(whiteShaderCode)
 end
 
 return playstate

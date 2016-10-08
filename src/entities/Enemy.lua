@@ -14,6 +14,7 @@ function Enemy:new(x, y, xVel, yVel)
 	-- sprite/animation component
 	self.sprite = assets.enemy
 	self.offset = { x = 4, y = 4 }
+	self.flippedH = false
 	local g = anim8.newGrid(_G.TILE_SIZE, _G.TILE_SIZE, self.sprite:getWidth(), self.sprite:getHeight())
 	self.animation = anim8.newAnimation(g('1-3',1), 0.1)
 
@@ -37,6 +38,8 @@ function Enemy:new(x, y, xVel, yVel)
 end
 
 function Enemy:update(dt)
+	print('e')
+	self:updateAnimations()
 end
 
 function Enemy:onCollision(other)
@@ -71,6 +74,15 @@ function Enemy:die()
 
 	screen:setShake(12)
 	screen:setRotation(0.05)
+end
+
+
+function Enemy:updateAnimations()
+	if self.movable.velocity.x < 0 then
+		self.flippedH = false
+	elseif self.movable.velocity.x > 0 then
+		self.flippedH = true
+	end
 end
 
 return Enemy
