@@ -156,6 +156,7 @@ function shootControls(self,dt)
 	end
 
 	if down then
+		trailPs:setSizes(math.random(0.4, 0.5), 0)
 		trailPs:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 10)
 		trailPs:emit(1)
 	end
@@ -182,14 +183,17 @@ function Player:setupParticles()
   trailPs:setLinearAcceleration(0, -400)
   trailPs:setLinearDamping(50)
   trailPs:setSpin(0, 30)
+	trailPs:setColors(82, 127, 57, 255)
   trailPs:setRotation(0, 2*3.14)
-	trailPs:setSizes(math.random(0.4, 0.5), 0)
   trailPs:setInsertMode('random')
 end
 
 function Player:shoot(dt)
 	-- shoot
 	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
+	bullet_sfx = assets.bullet_sfx:clone()
+	bullet_sfx:play()
+
 
 	-- fx
 	screen:setShake(1.5)

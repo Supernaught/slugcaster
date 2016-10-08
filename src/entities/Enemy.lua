@@ -66,6 +66,9 @@ function Enemy:die()
 		end)
 	end
 
+	explode_sfx = assets.explode_sfx:clone()
+	explode_sfx:play()
+
 	screen:setShake(12)
 	screen:setRotation(0.05)
 end

@@ -10,13 +10,13 @@ local dir = 1
 function menustate:enter()
 	timer.clear()
 
-	local xSpeed = -5
+	local xSpeed = -50
 	local frontBg = MovingParallaxBG(assets.bg, 0, 'floatBottom', xSpeed)
 	local frontBg2 = MovingParallaxBG(assets.bg, push:getWidth(), 'floatBottom', xSpeed, frontBg)
 
-	local xSpeed = -15
-	local backBg = MovingParallaxBG(assets.bg2, 0, 'floatBottom', xSpeed)
-	local backBg2 = MovingParallaxBG(assets.bg2, push:getWidth(), 'floatBottom', xSpeed, backBg)
+	local xSpeed2 = -90
+	local backBg = MovingParallaxBG(assets.bg2, 0, 'floatBottom', xSpeed2)
+	local backBg2 = MovingParallaxBG(assets.bg2, push:getWidth(), 'floatBottom', xSpeed2, backBg)
 
 	local pressStartUI = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
 	pressStartUI.blinking = true

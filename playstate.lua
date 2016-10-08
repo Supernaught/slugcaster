@@ -65,6 +65,7 @@ function playstate:setupExplosionSmokeParticles()
   smokePs:setLinearAcceleration(0, -600)
   smokePs:setLinearDamping(50)
   smokePs:setSpin(0, 30)
+	smokePs:setColors(82, 127, 57, 255);
   smokePs:setRotation(0, 2*3.14)
 	smokePs:setSizes(.5, 0)
   smokePs:setInsertMode('random')
