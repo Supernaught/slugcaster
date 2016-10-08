@@ -13,13 +13,13 @@ function EnemyWalker:new()
 
 
 	-- TODO: change assets here
-
+	self.setupParticles()
 
 	-- sprite/animation component
-	-- self.sprite = assets.enemy
-	-- self.offset = { x = 4, y = 4 }
-	-- local g = anim8.newGrid(_G.TILE_SIZE, _G.TILE_SIZE, self.sprite:getWidth(), self.sprite:getHeight())
-	-- self.animation = anim8.newAnimation(g('1-3',1), 0.1)
+	self.sprite = assets.skull
+	self.offset = { x = 4, y = 4 }
+	local g = anim8.newGrid(12, 12, self.sprite:getWidth(), self.sprite:getHeight())
+	self.animation = anim8.newAnimation(g('1-4',1), 0.1)
 
 	self:setupBehavior()
 
@@ -32,7 +32,7 @@ function EnemyWalker:setupBehavior()
 
 	local xVel, yVel = 0, 0
 
-	local mainSpeed = math.random(40,70)
+	local mainSpeed = math.random(50,70)
 	local randomSpeed = 10
 
 	if spawnOnSide == 0 then
@@ -61,6 +61,27 @@ function EnemyWalker:setupBehavior()
 
 	self.movable.velocity.x = xVel
 	self.movable.velocity.y = yVel
+end
+
+function EnemyWalker:update(dt)
+		skullSmoke:update(dt)
+		skullSmoke:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 12)
+		skullSmoke:emit(1)
+end
+
+function EnemyWalker:setupParticles()
+	skullSmoke = love.graphics.newParticleSystem(assets.smoke, 100)
+	skullSmoke:setPosition(push:getWidth()/2, push:getHeight()/2)
+	skullSmoke:setParticleLifetime(0.2, 0.4)
+  skullSmoke:setDirection(1.5*3.14)
+  skullSmoke:setSpread(3.14/3)
+  skullSmoke:setLinearAcceleration(0, -400)
+  skullSmoke:setLinearDamping(50)
+  skullSmoke:setSpin(0, 30)
+	skullSmoke:setColors(82, 127, 57, 255)
+  skullSmoke:setRotation(0, 2*3.14)
+  skullSmoke:setInsertMode('random')
+	skullSmoke:setSizes(math.random(0.5, 0.8), 0)
 end
 
 function EnemyWalker:die()
