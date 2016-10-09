@@ -21,13 +21,13 @@ function menustate:enter()
 	local backBg = MovingParallaxBG(assets.bg2, 0, 'floatBottom', xSpeed2)
 	local backBg2 = MovingParallaxBG(assets.bg2, push:getWidth(), 'floatBottom', xSpeed2, backBg)
 
-	local pressStartUI = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.font_sm)
+	local pressStartUI = UIText("PRESS START", 0, push:getHeight() * 0.75, push:getWidth(), nil, nil, assets.font_sm)
 	pressStartUI.blinking = true
 	pressStartUI.blinkDelay = 0.5
 
-	local credits = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
+	-- local credits = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
 
-	titleImage = UIImage(assets.title, "center", 25)
+	titleImage = UIImage(assets.title2, "center", 25)
 
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),

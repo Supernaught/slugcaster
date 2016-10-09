@@ -11,6 +11,7 @@ assets.shells = love.graphics.newImage("assets/bullet_shell.png")
 assets.explosion = love.graphics.newImage("assets/explosion.png")
 assets.smoke = love.graphics.newImage("assets/smoke.png")
 assets.title = love.graphics.newImage("assets/title.png")
+assets.title2 = love.graphics.newImage("assets/title2.png")
 assets.level = love.graphics.newImage("assets/level.png")
 assets.level160 = love.graphics.newImage("assets/level_160.png")
 

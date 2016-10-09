@@ -42,7 +42,7 @@ function playstate:enter()
 		require("src.systems.DestroyOffScreenSystem")(),
 		require("src.systems.SpriteSystem")(),
 		require("src.systems.DrawUISystem")("hudForeground"),
-		UIImage(assets.level, 0, 0),
+		-- UIImage(assets.level, 0, 0),
 		UIImage(assets.level160, 0, 0),
 		player
 	)

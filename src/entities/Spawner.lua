@@ -19,8 +19,8 @@ function Spawner:new()
 	self.name = "Spawner"
 	self.isSpawner = true
 
-	self.spawnDelayMin = 0.5
-	self.spawnDelayMax = 2
+	self.spawnDelayMin = 0.15
+	self.spawnDelayMax = 1.2
 
 	self:spawn()
 
