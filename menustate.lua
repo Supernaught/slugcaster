@@ -1,6 +1,7 @@
 menustate = {}
 
 local UIText = require "src.entities.UIText"
+local UIImage = require "src.entities.UIImage"
 local MovingParallaxBG = require "src.entities.MovingParallaxBG"
 local assets =  require "src.assets"
 
@@ -22,6 +23,8 @@ function menustate:enter()
 	pressStartUI.blinking = true
 	pressStartUI.blinkDelay = 0.5
 
+	local titleImage = UIImage(assets.title, "center", 35)
+
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
 		require("src.systems.BlinkingSystem")(),
@@ -33,7 +36,8 @@ function menustate:enter()
 		frontBg2,
 		backBg,
 		backBg2,
-		UIText("SLUGCASTER", 0, push:getHeight() * 0.2, push:getWidth(), nil, nil, assets.font_sm),
+		titleImage,
+		-- UIText("SLUGCASTER", 0, push:getHeight() * 0.2, push:getWidth(), nil, nil, assets.font_sm),
 		pressStartUI
 	)
 

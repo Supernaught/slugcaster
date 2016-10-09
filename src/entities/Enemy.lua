@@ -11,6 +11,9 @@ function Enemy:new(x, y, xVel, yVel)
 	self.name = "Enemy"
 	self.isEnemy = true
 
+	-- hp
+	self.hp = 1
+
 	-- sprite/animation component
 	self.sprite = assets.enemy
 	self.offset = { x = 4, y = 4 }
@@ -38,17 +41,21 @@ function Enemy:new(x, y, xVel, yVel)
 end
 
 function Enemy:update(dt)
-	print('e')
 	self:updateAnimations()
 end
 
 function Enemy:onCollision(other)
 	if other.isBullet and self.isAlive and other.isAlive then
-		self:die()
+		self:hit()
 	end
 end
 
 function Enemy:hit(damage)
+	self.spark = true
+	self.hp = self.hp -1
+	if self.hp <= 0 then
+		self:die()
+	end
 end
 
 function Enemy:die()
@@ -74,6 +81,8 @@ function Enemy:die()
 
 	screen:setShake(12)
 	screen:setRotation(0.05)
+
+	playstate.addScore()
 end
 
 

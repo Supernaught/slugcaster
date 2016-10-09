@@ -11,16 +11,20 @@ function EnemyWalker:new()
 	self.name = "EnemyWalker"
 	self.isEnemyWalker = true
 
+	self:setupParticles()
 
 	-- TODO: change assets here
 
 	-- sprite/animation component
 	self.sprite = assets.skull
-	self.offset = { x = 4, y = 4 }
+	self.offset = { x = 6, y = 6 }
 	local g = anim8.newGrid(12, 12, self.sprite:getWidth(), self.sprite:getHeight())
 	self.animation = anim8.newAnimation(g('1-4',1), 0.1)
 
-	self.setupParticles()
+	-- collider
+	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y - self.offset.y, 8, 8)
+	self.collider['parent'] = self
+
 	self:setupBehavior()
 
 	return self
@@ -69,24 +73,28 @@ function EnemyWalker:setupBehavior()
 end
 
 function EnemyWalker:update(dt)
-		skullTrailPs:update(dt)
-		skullTrailPs:setPosition(self.pos.x, self.pos.y)
-		skullTrailPs:emit(5)
+	self.skullTrailPs:update(dt)
+	self.skullTrailPs:setPosition(self.pos.x - (0.1*self.movable.velocity.x)/1.5, self.pos.y - (0.1*self.movable.velocity.y)/1.5)
+	self.skullTrailPs:emit(1)
 end
 
 function EnemyWalker:setupParticles()
-	skullTrailPs = love.graphics.newParticleSystem(assets.smoke, 100)
-	skullTrailPs:setPosition(push:getWidth()/2, push:getHeight()/2)
-	skullTrailPs:setParticleLifetime(0.2, 0.4)
-  skullTrailPs:setDirection(1.5*3.14)
-  skullTrailPs:setSpread(3.14/3)
-  skullTrailPs:setLinearAcceleration(0, -400)
-  skullTrailPs:setLinearDamping(50)
-  skullTrailPs:setSpin(0, 30)
-	skullTrailPs:setColors(82, 127, 57, 255)
-  skullTrailPs:setRotation(0, 2*3.14)
-  skullTrailPs:setInsertMode('random')
-	skullTrailPs:setSizes(math.random(0.5, 0.8), 0)
+	self.skullTrailPs = love.graphics.newParticleSystem(assets.smoke, 100)
+	self.skullTrailPs:setPosition(push:getWidth()/2, push:getHeight()/2)
+	self.skullTrailPs:setParticleLifetime(0.2, 0.4)
+	self.skullTrailPs:setDirection(1.5*3.14)
+	self.skullTrailPs:setSpread(3.14/3)
+	self.skullTrailPs:setLinearAcceleration(0, -400)
+	self.skullTrailPs:setLinearDamping(50)
+	self.skullTrailPs:setSpin(0, 30)
+	self.skullTrailPs:setColors(82, 127, 57, 255)
+	self.skullTrailPs:setRotation(0, 2*3.14)
+	self.skullTrailPs:setInsertMode('random')
+	self.skullTrailPs:setSizes(0.4, 0)
+end
+
+function EnemyWalker:draw()
+    love.graphics.draw(self.skullTrailPs, 0, 0, 0, 1, 1)
 end
 
 function EnemyWalker:die()

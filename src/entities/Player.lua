@@ -4,7 +4,7 @@ Bullet = require "src.entities.Bullet"
 local Player = GameObject:extend()
 local assets =  require "src.assets"
 
-local gravity = 100 * 1
+local gravity = 100 * 1.5
 local flySpeed = 150 * 1.5
 local leftRightSpeed = 800
 local xDrag = 300
@@ -185,7 +185,7 @@ function Player:setupParticles()
 	trailPs:setColors(82, 127, 57, 255)
 	trailPs:setRotation(0, 2*3.14)
 	trailPs:setInsertMode('random')
-	trailPs:setSizes(math.random(0.4, 0.5), 0)
+	trailPs:setSizes(0.4, 0)
 end
 
 function Player:shoot(dt)
@@ -249,8 +249,7 @@ function Player:onCollision(other, delta)
 end
 
 function Player:die()
-	print('game over')
-	timer.after(0.1, function() love.timer.sleep(0.1) end)
+	timer.after(0.08, function() love.timer.sleep(0.1) end)
 
 	screen:setShake(70)
 	-- screen:setRotation(0.1)

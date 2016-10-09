@@ -12,13 +12,19 @@ function EnemyRandomWalker:new()
 	self.name = "EnemyRandomWalker"
 	self.isEnemyRandomWalker = true
 
+	self.hp = 2
+
 	-- TODO: change assets here
 
 	-- sprite/animation component
 	self.sprite = assets.jellyfish
-	self.offset = { x = 6, y = 6 }
+	self.offset = { x = 8, y = 8 }
 	local g = anim8.newGrid(12, 12, self.sprite:getWidth(), self.sprite:getHeight())
 	self.animation = anim8.newAnimation(g('1-5',1), 0.1)
+
+	-- collider
+	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y - self.offset.y, 12, 12)
+	self.collider['parent'] = self
 
 	-- move towards target component
 	self.moveTowardsTarget = true

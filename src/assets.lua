@@ -9,6 +9,7 @@ assets.enemy = love.graphics.newImage("assets/enemy.png")
 assets.shells = love.graphics.newImage("assets/bullet_shell.png")
 assets.explosion = love.graphics.newImage("assets/explosion.png")
 assets.smoke = love.graphics.newImage("assets/smoke.png")
+assets.title = love.graphics.newImage("assets/explosion.png")
 
 assets.bg = love.graphics.newImage("assets/bg.png")
 assets.bg2 = love.graphics.newImage("assets/bg2.png")
@@ -39,5 +40,6 @@ assets.alt_font_sm = love.graphics.newFont("assets/04b03.ttf", 8)
 
 -- Shaders
 assets.lamp = love.graphics.newShader("assets/lamp.fs")
+assets.spark_shader = love.graphics.newShader("assets/spark.fs")
 
 return assets

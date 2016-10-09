@@ -11,11 +11,19 @@ local lume = require "lib.lume"
 local Enemy = require "src.entities.Enemy"
 local EnemyWalker = require "src.entities.EnemyWalker"
 local EnemyRandomWalker = require "src.entities.EnemyRandomWalker"
+local EnemyWalkerShooter = require "src.entities.EnemyWalkerShooter"
+
+local level = 1
+local spawnDelayMin, spawnDelayMax
 
 function Spawner:new()
 	self.name = "Spawner"
 	self.isSpawner = true
+
 	self:spawn()
+
+	spawnDelayMin = 0.2
+	spawnDelayMax = 1
 
 	return self
 end
@@ -26,9 +34,10 @@ end
 function Spawner:spawn()
 	world:add(lume.randomchoice({
 		EnemyWalker(),
-		EnemyRandomWalker()
+		EnemyRandomWalker(),
+		-- EnemyWalkerShooter(),
 	}))
-	timer.after(math.random(0.1,1.5), function() self:spawn() end)
+	timer.after(lume.random(spawnDelayMin,spawnDelayMax), function() self:spawn() end)
 end
 
 return Spawner
