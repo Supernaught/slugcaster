@@ -9,7 +9,7 @@ assets.enemy = love.graphics.newImage("assets/enemy.png")
 assets.shells = love.graphics.newImage("assets/bullet_shell.png")
 assets.explosion = love.graphics.newImage("assets/explosion.png")
 assets.smoke = love.graphics.newImage("assets/smoke.png")
-assets.title = love.graphics.newImage("assets/explosion.png")
+assets.title = love.graphics.newImage("assets/title.png")
 
 assets.bg = love.graphics.newImage("assets/bg.png")
 assets.bg2 = love.graphics.newImage("assets/bg2.png")
