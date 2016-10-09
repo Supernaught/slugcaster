@@ -74,7 +74,7 @@ end
 
 function EnemyWalker:update(dt)
 	self.skullTrailPs:update(dt)
-	self.skullTrailPs:setPosition(self.pos.x - (0.1*self.movable.velocity.x)/1.5, self.pos.y - (0.1*self.movable.velocity.y)/1.5)
+	self.skullTrailPs:setPosition(self.pos.x - (0.1*self.movable.velocity.x) + math.random(-3, 3), self.pos.y - (0.1*self.movable.velocity.y)+ math.random(-3, 3))
 	self.skullTrailPs:emit(1)
 end
 
@@ -90,7 +90,7 @@ function EnemyWalker:setupParticles()
 	self.skullTrailPs:setColors(82, 127, 57, 255)
 	self.skullTrailPs:setRotation(0, 2*3.14)
 	self.skullTrailPs:setInsertMode('random')
-	self.skullTrailPs:setSizes(0.4, 0)
+	self.skullTrailPs:setSizes(0.6, 0)
 end
 
 function EnemyWalker:draw()
