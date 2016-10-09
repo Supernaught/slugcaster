@@ -269,10 +269,14 @@ function Player:die()
 end
 
 function Player:checkBoundaries()
-	if self.pos.x <= 6 then
-		self.pos.x = 6
-	elseif self.pos.x >= push:getWidth() - 6 then
-		self.pos.x = push:getWidth() - 6
+	if self.pos.x <= 18 then
+		self.pos.x = 18
+	elseif self.pos.x >= push:getWidth() - 18 then
+		self.pos.x = push:getWidth() - 18
+	end
+
+	if self.pos.y <= 28 then
+		self:die()
 	end
 end
 

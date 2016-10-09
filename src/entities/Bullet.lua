@@ -6,6 +6,7 @@
 
 local Bullet = GameObject:extend()
 local assets =  require "src.assets"
+local WaterSplash =  require "src.entities.WaterSplash"
 local vector = require "lib.hump.vector"
 local lume = require "lib.lume"
 
@@ -21,6 +22,7 @@ function Bullet:new(x, y, angle, speed)
 	-- Bullet
 	self.sprite = assets.bullet
 	self.offset = { x = self.sprite:getWidth() / 2, y = self.sprite:getHeight() / 2 }
+	self.touchedWater = (self.pos.y >= 120 - 12)
 
 	-- MoveTowardsAngle component
 	self.moveTowardsAngle = true
@@ -77,6 +79,10 @@ function Bullet:die()
 end
 
 function Bullet:update(dt)
+	if self.pos.y >= 120 - 12 and not self.touchedWater then
+		world:add(WaterSplash(self.pos.x - self.offset.x, 120-10))
+		self.touchedWater = true
+	end
 end
 
 return Bullet

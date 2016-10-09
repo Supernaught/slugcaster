@@ -46,7 +46,7 @@ function EnemyWalkerShooter:setupBehavior()
 	local xVel, yVel = 0, 0
 
 	local mainSpeed = math.random(10,10)
-	local randomSpeed = 2
+	local randomSpeed = 3
 
 	if spawnOnSide == 0 then
 		spawnPos.x = lume.randomchoice({0,push:getWidth()})

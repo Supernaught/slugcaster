@@ -7,6 +7,7 @@ local Enemy = require "src.entities.Enemy"
 local EnemyWalkerShooter = require "src.entities.EnemyWalkerShooter"
 local Spawner = require "src.entities.Spawner"
 local Water = require "src.entities.Water"
+local UIImage = require "src.entities.UIImage"
 
 -- libs
 local Camera = require "lib.hump.camera"
@@ -41,8 +42,10 @@ function playstate:enter()
 		require("src.systems.MovableSystem")(),
 		require("src.systems.ShooterSystem")(),
 		require("src.systems.DestroyOffScreenSystem")(),
-		require("src.systems.DrawUISystem")("hudForeground"),
 		require("src.systems.SpriteSystem")(),
+		require("src.systems.DrawUISystem")("hudForeground"),
+		-- UIImage(assets.level, -7, -6),
+		UIImage(assets.level160, 0, 0),
 		player
 	)
 
@@ -84,6 +87,7 @@ end
 
 function playstate:draw()
 	push:apply("start")
+	screen:apply()
     love.graphics.draw(smokePs, 0, 0, 0, 1, 1)
 	push:apply("end")
 	

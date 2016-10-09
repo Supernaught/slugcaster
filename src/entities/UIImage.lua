@@ -19,7 +19,7 @@ function UIImage:new(image, x, y)
 	if type(x) == 'string' and x == "center" then
 		self.pos.x = push:getWidth()/2 - image:getWidth()/2
 	else
-		self.pos.y = y
+		self.pos.x = x
 	end
 
 	if type(y) == 'string' and y == "center" then

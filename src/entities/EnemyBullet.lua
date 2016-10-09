@@ -19,8 +19,10 @@ function EnemyBullet:new(x, y, angle, speed)
 	self.angle = angle or self.angle
 
 	-- EnemyBullet sprite
-	self.sprite = assets.bullet
-	self.offset = { x = self.sprite:getWidth() / 2, y = self.sprite:getHeight() / 2 }
+	self.sprite = assets.enemy_bullet
+	self.offset = { x = 6, y = 6 }
+	local g = anim8.newGrid(12, 12, self.sprite:getWidth(), self.sprite:getHeight())
+	self.animation = anim8.newAnimation(g('1-4',1), 0.1)
 
 	-- MoveTowardsAngle component
 	self.moveTowardsAngle = true
