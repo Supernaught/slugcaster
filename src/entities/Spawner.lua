@@ -14,16 +14,15 @@ local EnemyRandomWalker = require "src.entities.EnemyRandomWalker"
 local EnemyWalkerShooter = require "src.entities.EnemyWalkerShooter"
 
 local level = 1
-local spawnDelayMin, spawnDelayMax
 
 function Spawner:new()
 	self.name = "Spawner"
 	self.isSpawner = true
 
-	self:spawn()
+	self.spawnDelayMin = 0.5
+	self.spawnDelayMax = 2
 
-	spawnDelayMin = 0.2
-	spawnDelayMax = 1
+	self:spawn()
 
 	return self
 end
@@ -37,7 +36,7 @@ function Spawner:spawn()
 		EnemyRandomWalker(),
 		-- EnemyWalkerShooter(),
 	}))
-	timer.after(lume.random(spawnDelayMin,spawnDelayMax), function() self:spawn() end)
+	timer.after(lume.random(self.spawnDelayMin,self.spawnDelayMax), function() self:spawn() end)
 end
 
 return Spawner

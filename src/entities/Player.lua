@@ -55,12 +55,14 @@ function Player:new()
 end
 
 function Player:update(dt)
-	shootControls(self,dt)
+	self:shootControls(dt)
 	-- moveControls(self, dt)
-	self:updateAnimations(self)
+	self:updateAnimations()
+
+	self:checkBoundaries()
 
     bulletPs:update(dt)
-		trailPs:update(dt)
+	trailPs:update(dt)
 end
 
 function moveControls(self, dt)
@@ -84,7 +86,7 @@ function moveControls(self, dt)
 	end
 end
 
-function shootControls(self,dt)
+function Player:shootControls(dt)
 	local down = love.keyboard.isDown('down')
 	local up = love.keyboard.isDown('up')
 	local left = love.keyboard.isDown('left')
@@ -264,6 +266,14 @@ function Player:die()
 	self.toRemove = true
 
 	timer.after(2, function() Gamestate.switch(menustate) end)
+end
+
+function Player:checkBoundaries()
+	if self.pos.x <= 6 then
+		self.pos.x = 6
+	elseif self.pos.x >= push:getWidth() - 6 then
+		self.pos.x = push:getWidth() - 6
+	end
 end
 
 return Player

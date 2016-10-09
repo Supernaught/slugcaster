@@ -26,7 +26,7 @@ function EnemyBullet:new(x, y, angle, speed)
 	self.moveTowardsAngle = true
 
 	-- movable component
-	self.speed = speed or 50
+	self.speed = speed or 40
 	self.movable = {
 		velocity = { x = 0, y = 0 },
 		acceleration = { x = 0, y = 0 },

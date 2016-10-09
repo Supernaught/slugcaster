@@ -37,10 +37,24 @@ function Enemy:new(x, y, xVel, yVel)
 	-- destroy off screen
 	self.destroyOffScreen = true
 
+	-- particles
+	self.hitPs = love.graphics.newParticleSystem(assets.shells, 100)
+	self.hitPs:setPosition(push:getWidth()/2, push:getHeight()/2)
+	self.hitPs:setParticleLifetime(0.3, 0.5)
+	self.hitPs:setDirection(1.5*3.14)
+	self.hitPs:setSpread(3.14/3)
+	self.hitPs:setSpeed(100, 150)
+	self.hitPs:setLinearAcceleration(0, 600)
+	self.hitPs:setLinearDamping(0.5)
+	self.hitPs:setSpin(3, 15)
+	self.hitPs:setRotation(0, 2*3.14)
+	self.hitPs:setInsertMode('random')
+
 	return self
 end
 
 function Enemy:update(dt)
+    self.hitPs:update(dt)
 	self:updateAnimations()
 end
 
@@ -55,6 +69,10 @@ function Enemy:hit(damage)
 	self.hp = self.hp -1
 	if self.hp <= 0 then
 		self:die()
+	else
+		self.hitPs:setPosition(self.pos.x, self.pos.y)
+		self.hitPs:emit(3)
+		screen:setShake(6)
 	end
 end
 
@@ -85,6 +103,9 @@ function Enemy:die()
 	playstate.addScore()
 end
 
+function Enemy:draw()
+	love.graphics.draw(self.hitPs, 0, 0, 0, 1, 1)
+end
 
 function Enemy:updateAnimations()
 	if self.movable.velocity.x < 0 then

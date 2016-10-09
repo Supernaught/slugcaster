@@ -82,11 +82,12 @@ function EnemyWalkerShooter:shootEnemyBullet()
 		enemyBullet.angle = enemyBullet.angle + math.rad(lume.random(-10,10))
 
 		world:add(enemyBullet)
-		timer.after(math.random(2,4), function() self:shootEnemyBullet() end)
+		timer.after(math.random(3,6), function() self:shootEnemyBullet() end)
 	end
 end
 
 function EnemyWalkerShooter:update(dt)
+	EnemyWalkerShooter.super.update(self, dt)
 	if self.movable.velocity.x < 0 then
 		self.flippedH = false
 	else

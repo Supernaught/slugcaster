@@ -4,6 +4,7 @@ playstate = {}
 -- entities
 local Player = require "src.entities.Player"
 local Enemy = require "src.entities.Enemy"
+local EnemyWalkerShooter = require "src.entities.EnemyWalkerShooter"
 local Spawner = require "src.entities.Spawner"
 local Water = require "src.entities.Water"
 
@@ -18,6 +19,7 @@ local score = 0
 HC = nil
 
 local assets = require "src.assets"
+local spawner
 
 function playstate:enter()
 	HC = HClib.new(150)
@@ -44,8 +46,10 @@ function playstate:enter()
 		player
 	)
 
+	spawner = Spawner()
+
 	world = self.world
-	world:add(Spawner())
+	world:add(spawner)
 
 	-- add water
 	for i=math.floor(push:getWidth()/12),0,-1
@@ -95,6 +99,15 @@ end
 
 function playstate.addScore(n)
 	score = score + (n or 1)
+
+	if score % 20 == 0 then
+		world:add(EnemyWalkerShooter())
+	end
+
+	if score % 10 == 0 and score < 100 then
+		spawner.spawnDelayMin = spawner.spawnDelayMin - 0.03
+		spawner.spawnDelayMax = spawner.spawnDelayMax - 0.12
+	end
 end
 
 return playstate

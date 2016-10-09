@@ -8,6 +8,8 @@ local assets =  require "src.assets"
 local title, pressToPlay
 local dir = 1
 
+local titleImage
+
 function menustate:enter()
 	timer.clear()
 
@@ -23,7 +25,7 @@ function menustate:enter()
 	pressStartUI.blinking = true
 	pressStartUI.blinkDelay = 0.5
 
-	local titleImage = UIImage(assets.title, "center", 35)
+	titleImage = UIImage(assets.title, "center", 35)
 
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
@@ -48,6 +50,8 @@ function menustate:update(dt)
 	if love.keyboard.isDown("space") then
 		Gamestate.switch(PlayState)
 	end
+
+	titleImage.pos.x = titleImage.pos.x + 0.1
 end
 
 function menustate:draw()

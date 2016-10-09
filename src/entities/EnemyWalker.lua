@@ -94,6 +94,7 @@ function EnemyWalker:setupParticles()
 end
 
 function EnemyWalker:draw()
+	EnemyWalker.super.draw(self)
     love.graphics.draw(self.skullTrailPs, 0, 0, 0, 1, 1)
 end
 
