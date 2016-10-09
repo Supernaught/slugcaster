@@ -21,11 +21,13 @@ function menustate:enter()
 	local backBg = MovingParallaxBG(assets.bg2, 0, 'floatBottom', xSpeed2)
 	local backBg2 = MovingParallaxBG(assets.bg2, push:getWidth(), 'floatBottom', xSpeed2, backBg)
 
-	local pressStartUI = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
+	local pressStartUI = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.font_sm)
 	pressStartUI.blinking = true
 	pressStartUI.blinkDelay = 0.5
 
-	titleImage = UIImage(assets.title, "center", 35)
+	local credits = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
+
+	titleImage = UIImage(assets.title, "center", 25)
 
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
@@ -34,10 +36,10 @@ function menustate:enter()
 		require("src.systems.SpriteSystem")(),
 		require("src.systems.MovableSystem")(),
 		require("src.systems.DrawUISystem")("hudForeground"),
-		frontBg,
-		frontBg2,
-		backBg,
-		backBg2,
+		-- frontBg,
+		-- frontBg2,
+		-- backBg,
+		-- backBg2,
 		titleImage,
 		-- UIText("SLUGCASTER", 0, push:getHeight() * 0.2, push:getWidth(), nil, nil, assets.font_sm),
 		pressStartUI
@@ -51,7 +53,7 @@ function menustate:update(dt)
 		Gamestate.switch(PlayState)
 	end
 
-	titleImage.pos.x = titleImage.pos.x + 0.1
+	-- titleImage.pos.x = titleImage.pos.x + 0.1
 end
 
 function menustate:draw()

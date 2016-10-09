@@ -275,7 +275,7 @@ function Player:checkBoundaries()
 		self.pos.x = push:getWidth() - 18
 	end
 
-	if self.pos.y <= 28 then
+	if self.pos.y <= 28 or self.pos.y > 150 then
 		self:die()
 	end
 end

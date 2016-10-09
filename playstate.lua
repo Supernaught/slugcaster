@@ -10,7 +10,6 @@ local Water = require "src.entities.Water"
 local UIImage = require "src.entities.UIImage"
 
 -- libs
-local Camera = require "lib.hump.camera"
 local HClib = require "lib.hc"
 
 local player
@@ -25,7 +24,6 @@ local spawner
 function playstate:enter()
 	HC = HClib.new(150)
 	player = Player()
-	camera = Camera(0, 0, 1)
 
 	timer.clear()
 	score = 0
@@ -44,7 +42,7 @@ function playstate:enter()
 		require("src.systems.DestroyOffScreenSystem")(),
 		require("src.systems.SpriteSystem")(),
 		require("src.systems.DrawUISystem")("hudForeground"),
-		-- UIImage(assets.level, -7, -6),
+		UIImage(assets.level, 0, 0),
 		UIImage(assets.level160, 0, 0),
 		player
 	)
@@ -86,15 +84,17 @@ function playstate:setupExplosionSmokeParticles()
 end
 
 function playstate:draw()
-	push:apply("start")
-	screen:apply()
+
+	-- camera:lockPosition(player.pos.x, player.pos.y, Camera.smooth.linear(100))
+
+	-- push:apply("start")
     love.graphics.draw(smokePs, 0, 0, 0, 1, 1)
-	push:apply("end")
-	
+	-- push:apply("end")
+
 	love.graphics.setColor(215,232,148)
 	love.graphics.setFont(assets.font_sm)
-	love.graphics.printf(score, 0, 30, love.graphics.getWidth()/2, "center", 0, 2, 2)
-	love.graphics.print("FPS: " .. tostring(love.timer.getFPS()) .. "\nEntities: " .. world:getEntityCount(), 5, 5)
+	-- love.graphics.printf(score, 0, 30, love.graphics.getWidth()/2, "center", 0, 2, 2)
+	-- love.graphics.print("FPS: " .. tostring(love.timer.getFPS()) .. "\nEntities: " .. world:getEntityCount(), 5, 5)
 end
 
 function playstate.getPlayer()

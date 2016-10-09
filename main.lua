@@ -8,8 +8,10 @@ Gamestate = require "lib.hump.gamestate"
 Object = require "lib.classic"
 timer = require "lib.hump.timer"
 anim8 = require "lib.anim8"
+gamera = require "lib.gamera"
 
 -- Ulydev camera options
+Camera = require "lib.hump.camera"
 screen = require "lib.shack"
 push = require "lib.push"
 
@@ -28,13 +30,15 @@ local assets =  require "src.assets"
 world = {}
 camera = nil
 
--- Game settings
+-- Game stuff
 local scale = 1
 
 function love.load()
 	_G.TILE_SIZE = 8
 	scale = love.graphics.getWidth() / 160
 	setupPushScreen()
+	camera = Camera(0,0)
+
 	Gamestate.registerEvents()
 	Gamestate.switch(MenuState)
 	-- Gamestate.switch(PlayState)
@@ -58,16 +62,15 @@ function love.update(dt)
 end
 
 function love.draw()
+	-- camera:attach()
 	push:apply("start")
 	screen:apply()
-	
-	if world and world.update then
-		-- love.graphics.setShader(palette1Shader)
-		world:update(love.timer.getDelta())
-		-- love.graphics.setShader()
-	end
 
+	if world and world.update then
+		world:update(love.timer.getDelta())
+	end
 	push:apply("end")
+	-- camera:detach()
 end
 
 function setupPushScreen()
