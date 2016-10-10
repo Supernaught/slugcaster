@@ -23,6 +23,7 @@ escquit = require "lib.alfonzm.escquit"
 
 -- States
 PlayState = require "playstate"
+DemoState = require "demostate"
 MenuState = require "menustate"
 
 local assets =  require "src.assets"
@@ -44,6 +45,7 @@ function love.load()
 
 	Gamestate.registerEvents()
 	Gamestate.switch(MenuState)
+	-- Gamestate.switch(DemoState)
 
     -- bg music
 	assets.music1:setVolume(0.8)
@@ -72,6 +74,7 @@ function love.draw()
 
 	-- camera:detach()
 	PaletteSwitcher.unset()
+
 end
 
 function love.keypressed(k)
@@ -88,4 +91,9 @@ function setupPushScreen()
 	local gameWidth, gameHeight = windowWidth / scale, windowHeight / scale
 	push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight, {fullscreen = false})
 	screen:setDimensions(push:getDimensions())
+end
+
+function switchPalette()
+	PaletteSwitcher.next()
+	timer.after(0.8, function() switchPalette() end)
 end

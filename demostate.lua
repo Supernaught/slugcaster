@@ -1,5 +1,5 @@
--- playstate
-playstate = {}
+-- demostate
+demostate = {}
 
 -- entities
 local Player = require "src.entities.Player"
@@ -21,7 +21,7 @@ HC = nil
 local assets = require "src.assets"
 local spawner
 
-function playstate:enter()
+function demostate:enter()
 	HC = HClib.new(150)
 	player = Player()
 
@@ -43,7 +43,8 @@ function playstate:enter()
 		require("src.systems.SpriteSystem")(),
 		require("src.systems.DrawUISystem")("hudForeground"),
 		UIImage(assets.level160, 0, 0),
-		player
+		player,
+		UIImage(assets.titlesmall, "center", 20, 1,1)
 	)
 
 	spawner = Spawner()
@@ -56,9 +57,10 @@ function playstate:enter()
 	do
 		world:add(Water(12 * i,120))
 	end
+	-- timer.after(0.8, function() switchPalette() end)
 end
 
-function playstate:update(dt)
+function demostate:update(dt)
 	if love.keyboard.isDown("q") then
 		Gamestate.switch(menustate)
 	end
@@ -66,7 +68,7 @@ function playstate:update(dt)
 	smokePs:update(dt)
 end
 
-function playstate:setupExplosionSmokeParticles()
+function demostate:setupExplosionSmokeParticles()
 	smokePs = love.graphics.newParticleSystem(assets.smoke, 100)
 	smokePs:setPosition(push:getWidth()/2, push:getHeight()/2)
 	smokePs:setParticleLifetime(0.5, 1.2)
@@ -82,7 +84,7 @@ function playstate:setupExplosionSmokeParticles()
 	smokePs:setInsertMode('random')
 end
 
-function playstate:draw()
+function demostate:draw()
 	PaletteSwitcher:set()
 	push:apply("start")
     love.graphics.draw(smokePs, 0, 0, 0, 1, 1)
@@ -90,14 +92,18 @@ function playstate:draw()
 
 	PaletteSwitcher:set()
 	love.graphics.setColor(215,232,148)
+	-- love.graphics.setFont(assets.font_sm)
+	love.graphics.printf("BY SUPERNAUGHT", 0, love.graphics.getHeight()-50, love.graphics.getWidth()/2, "center", 0, 2, 2)
+	-- love.graphics.printf(score, 0, 30, love.graphics.getWidth()/2, "center", 0, 2, 2)
+	-- love.graphics.print("FPS: " .. tostring(love.timer.getFPS()) .. "\nEntities: " .. world:getEntityCount(), 5, 5)
 	PaletteSwitcher:unset()
 end
 
-function playstate.getPlayer()
+function demostate.getPlayer()
 	return player
 end
 
-function playstate.addScore(n)
+function demostate.addScore(n)
 	score = score + (n or 1)
 
 	if score % 20 == 0 then
@@ -105,9 +111,9 @@ function playstate.addScore(n)
 	end
 
 	if score % 10 == 0 and score < 50 then
-		spawner.spawnDelayMin = spawner.spawnDelayMin - 0.03
-		spawner.spawnDelayMax = spawner.spawnDelayMax - 0.12
+		-- spawner.spawnDelayMin = spawner.spawnDelayMin - 0.03
+		-- spawner.spawnDelayMax = spawner.spawnDelayMax - 0.12
 	end
 end
 
-return playstate
+return demostate

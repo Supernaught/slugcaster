@@ -60,7 +60,7 @@ function EnemyBullet:new(x, y, angle, speed)
 	-- self.targetPos.y = playstate.getPlayer().pos.y
 
 	-- collider
-	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y + self.offset.y, self.sprite:getWidth() / 3, self.sprite:getHeight()/2)
+	self.collider = HC:rectangle(self.pos.x - self.offset.x, self.pos.y + self.offset.y, 6, 6)
 	self.collider:moveTo(self.pos.x, self.pos.y)
 	self.collider['parent'] = self
 

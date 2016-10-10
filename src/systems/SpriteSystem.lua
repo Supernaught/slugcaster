@@ -22,9 +22,8 @@ function SpriteSystem:process(e, dt)
     love.graphics.setColor(255, 255, 255, math.max(0, math.min(1, alpha)) * 255)
 
     if e.spark then
-        love.graphics.setShader(assets.spark_shader)
-        e.spark = false
-        timer.after(0.012, function() e.spark = false end)
+        -- love.graphics.setShader(assets.spark_shader)
+        timer.after(0.02, function() e.spark = false end)
     end
 
     if an then

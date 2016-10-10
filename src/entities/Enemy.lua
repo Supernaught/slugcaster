@@ -38,15 +38,16 @@ function Enemy:new(x, y, xVel, yVel)
 	self.destroyOffScreen = true
 
 	-- particles
-	self.hitPs = love.graphics.newParticleSystem(assets.shells, 100)
+	self.hitPs = love.graphics.newParticleSystem(assets.smoke, 100)
 	self.hitPs:setPosition(push:getWidth()/2, push:getHeight()/2)
-	self.hitPs:setParticleLifetime(0.3, 0.5)
+	self.hitPs:setParticleLifetime(0.2, 0.5)
 	self.hitPs:setDirection(1.5*3.14)
 	self.hitPs:setSpread(3.14/3)
 	self.hitPs:setSpeed(100, 150)
+	self.hitPs:setSizes(0.2, 0)
 	self.hitPs:setLinearAcceleration(0, 600)
-	self.hitPs:setLinearDamping(0.5)
-	self.hitPs:setSpin(3, 15)
+	self.hitPs:setLinearDamping(0.3)
+	self.hitPs:setSpin(3, 5)
 	self.hitPs:setRotation(0, 2*3.14)
 	self.hitPs:setInsertMode('random')
 
@@ -67,16 +68,18 @@ end
 function Enemy:hit(damage)
 	self.spark = true
 	self.hp = self.hp - (damage or 1)
+	
+	self.hitPs:setPosition(self.pos.x, self.pos.y)
+	self.hitPs:emit(math.random(2,5))
+
 	if self.hp <= 0 then
 		-- die
 		self:die()
 	else
 		-- take damage
 		hit1_sfx = assets.bullet_sfx:clone()
-		-- hit1_sfx:play()
-		self.hitPs:setPosition(self.pos.x, self.pos.y)
-		self.hitPs:emit(3)
-		screen:setShake(6)
+		hit1_sfx:play()
+		screen:setShake(4)
 	end
 end
 

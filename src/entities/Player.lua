@@ -255,6 +255,7 @@ end
 
 function Player:die()
 	timer.after(0.08, function() love.timer.sleep(0.1) end)
+	assets.death:clone():play()
 
 	screen:setShake(70)
 	-- screen:setRotation(0.1)

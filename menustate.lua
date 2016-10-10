@@ -28,7 +28,7 @@ function menustate:enter()
 
 	-- local credits = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
 
-	titleImage = UIImage(assets.title2, "center", -30)
+	titleImage = UIImage(assets.title, "center", -30)
 
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
@@ -52,7 +52,7 @@ function menustate:enter()
 end
 
 function menustate:update(dt)
-	if love.keyboard.isDown("space") then
+	if love.keyboard.isDown("space") or love.keyboard.isDown("return") then
 		Gamestate.switch(PlayState)
 	end
 
