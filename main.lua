@@ -1,6 +1,7 @@
 io.stdout:setvbuf("no")
 
 -- Global libraries
+PaletteSwitcher = require('lib/PaletteSwitcher');
 class = require "lib.30log"
 tiny = require "lib.tiny"
 editgrid = require "lib.editgrid"
@@ -38,22 +39,17 @@ function love.load()
 	scale = love.graphics.getWidth() / 160
 	setupPushScreen()
 	camera = Camera(0,0)
+	PaletteSwitcher.init('lib/palettes_v4.png', 'lib/palette.fs');
+    PaletteSwitcher.prev()
 
 	Gamestate.registerEvents()
 	Gamestate.switch(MenuState)
-	-- Gamestate.switch(PlayState)
 
-
-	palette1ShaderCode = [[
-		vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
-		{
-			vec4 c = Texel(texture, texture_coords);		
-
-			return vec4(c.r, c.g, c.b, 1.0);
-		}
-	]]
-
-	palette1Shader = love.graphics.newShader(palette1ShaderCode)
+    -- bg music
+	assets.music1:setVolume(0.8)
+	assets.music1:setLooping(true)
+	assets.music1:play()
+	assets.explode3_sfx:setVolume(0.8)
 end
 
 function love.update(dt)
@@ -62,6 +58,9 @@ function love.update(dt)
 end
 
 function love.draw()
+    PaletteSwitcher.set();
+
+	love.graphics.setBackgroundColor(32.0/255.0, 70.0/255.0, 49.0/255.0, 1)
 	-- camera:attach()
 	push:apply("start")
 	screen:apply()
@@ -70,7 +69,17 @@ function love.draw()
 		world:update(love.timer.getDelta())
 	end
 	push:apply("end")
+
 	-- camera:detach()
+	PaletteSwitcher.unset()
+end
+
+function love.keypressed(k)
+	if k == '1' then
+		PaletteSwitcher.prev()
+	elseif k == '2' then
+		PaletteSwitcher.next()
+	end
 end
 
 function setupPushScreen()

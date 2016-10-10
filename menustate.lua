@@ -1,5 +1,6 @@
 menustate = {}
 
+local flux = require "lib.flux"
 local UIText = require "src.entities.UIText"
 local UIImage = require "src.entities.UIImage"
 local MovingParallaxBG = require "src.entities.MovingParallaxBG"
@@ -27,7 +28,7 @@ function menustate:enter()
 
 	-- local credits = UIText("PRESS START", 0, push:getHeight() * 0.7, push:getWidth(), nil, nil, assets.alt_font_sm)
 
-	titleImage = UIImage(assets.title2, "center", 25)
+	titleImage = UIImage(assets.title2, "center", -30)
 
 	self.world = tiny.world(
 		require("src.systems.BGColorSystem")(32,70,49),
@@ -41,11 +42,13 @@ function menustate:enter()
 		-- backBg,
 		-- backBg2,
 		titleImage,
-		-- UIText("SLUGCASTER", 0, push:getHeight() * 0.2, push:getWidth(), nil, nil, assets.font_sm),
 		pressStartUI
 	)
 
+	flux.to(titleImage.pos, 1.5, {y = 25})
+
 	world = self.world
+    PaletteSwitcher.next()
 end
 
 function menustate:update(dt)
@@ -53,7 +56,7 @@ function menustate:update(dt)
 		Gamestate.switch(PlayState)
 	end
 
-	-- titleImage.pos.x = titleImage.pos.x + 0.1
+	flux.update(dt)
 end
 
 function menustate:draw()

@@ -1,4 +1,4 @@
-function love.conf(t)
+	function love.conf(t)
 	t.title = "GBJAM5 Game"
 	local scale = 4
 	t.window.width = 160 * scale

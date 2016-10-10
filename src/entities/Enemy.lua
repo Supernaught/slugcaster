@@ -66,10 +66,14 @@ end
 
 function Enemy:hit(damage)
 	self.spark = true
-	self.hp = self.hp -1
+	self.hp = self.hp - (damage or 1)
 	if self.hp <= 0 then
+		-- die
 		self:die()
 	else
+		-- take damage
+		hit1_sfx = assets.bullet_sfx:clone()
+		-- hit1_sfx:play()
 		self.hitPs:setPosition(self.pos.x, self.pos.y)
 		self.hitPs:emit(3)
 		screen:setShake(6)
@@ -94,7 +98,11 @@ function Enemy:die()
 		end)
 	end
 
-	explode_sfx = assets.explode_sfx:clone()
+	explode_sfx = lume.randomchoice({
+		assets.explode1_sfx:clone(),
+		assets.explode2_sfx:clone(),
+		assets.explode3_sfx:clone(),
+	})
 	explode_sfx:play()
 
 	screen:setShake(12)

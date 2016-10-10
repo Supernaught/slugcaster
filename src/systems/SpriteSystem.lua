@@ -41,8 +41,7 @@ function SpriteSystem:process(e, dt)
         e:draw(dt)
     end
 
-    -- turn off spark shader
-    love.graphics.setShader()
+    PaletteSwitcher:set()
 end
 
 return SpriteSystem

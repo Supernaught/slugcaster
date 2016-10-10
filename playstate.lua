@@ -84,7 +84,6 @@ function playstate:setupExplosionSmokeParticles()
 end
 
 function playstate:draw()
-
 	-- camera:lockPosition(player.pos.x, player.pos.y, Camera.smooth.linear(100))
 
 	-- push:apply("start")

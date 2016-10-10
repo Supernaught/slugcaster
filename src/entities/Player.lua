@@ -158,8 +158,8 @@ function Player:shootControls(dt)
 	if down then
 		trailPs:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 10)
 		trailPs:emit(1)
-		boost_sfx = assets.boost_sfx:clone()
-		boost_sfx:play()
+		-- boost_sfx = assets.boost_sfx:clone()
+		-- boost_sfx:play()
 	end
 end
 
@@ -193,7 +193,10 @@ end
 function Player:shoot(dt)
 	-- shoot
 	world:addEntity(Bullet(self.pos.x, self.pos.y, math.rad(self.shootAngle)))
-	bullet_sfx = assets.bullet_sfx:clone()
+	bullet_sfx = lume.randomchoice({
+		assets.shoot1_sfx:clone(),
+		assets.shoot3_sfx:clone(),
+	})
 	bullet_sfx:play()
 
 

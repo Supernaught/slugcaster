@@ -25,14 +25,25 @@ assets.water = love.graphics.newImage("assets/water_spritesheet.png")
 assets.splash = love.graphics.newImage("assets/splash.png")
 
 -- SFX
+-- assets.bullet_sfx_decoder = love.sound.newDecoder("assets/sfx/shoot1.wav")
 assets.bullet_sfx_decoder = love.sound.newDecoder("assets/sfx/bullet_sfx.wav")
 assets.bullet_sfx = love.audio.newSource(assets.bullet_sfx_decoder)
 
-assets.explode_sfx_decoder = love.sound.newDecoder("assets/sfx/explode_sfx.wav")
-assets.explode_sfx = love.audio.newSource(assets.explode_sfx_decoder)
-
 assets.boost_sfx_decoder = love.sound.newDecoder("assets/sfx/boost_sfx.wav")
 assets.boost_sfx = love.audio.newSource(assets.boost_sfx_decoder)
+
+-- new
+assets.explode1_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/explode1.wav"))
+assets.explode2_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/explode2.wav"))
+assets.explode3_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/explode3.wav"))
+
+assets.hit1_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/enemyhit.wav"))
+
+assets.shoot1_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/shoot1.wav"))
+assets.shoot2_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/shoot2.wav"))
+assets.shoot3_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/shoot3.wav"))
+
+assets.music1 = love.audio.newSource(love.sound.newDecoder("assets/sfx/music1.mp3"))
 
 --
 assets.font_lg = love.graphics.newFont("assets/press_start.ttf", 24)
