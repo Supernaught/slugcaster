@@ -52,8 +52,8 @@ function EnemyRandomWalker:update(dt)
 	EnemyRandomWalker.super.update(self, dt)
 
 	if self.isInTargetPos then
-		self.targetPos.x = lume.random(0,push:getWidth())
-		self.targetPos.y = lume.random(0,push:getHeight())
+		self.targetPos.x = lume.random(10,push:getWidth()-10)
+		self.targetPos.y = lume.random(10,push:getHeight()-10)
 	end
 end
 

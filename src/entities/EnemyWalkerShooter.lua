@@ -49,24 +49,34 @@ function EnemyWalkerShooter:setupBehavior()
 	local randomSpeed = 3
 
 	if spawnOnSide == 0 then
-		spawnPos.x = lume.randomchoice({0,push:getWidth()})
-		spawnPos.y = math.random(0,push:getHeight())
-		if spawnPos.x == 0 then
+		spawnPos.x = lume.randomchoice({5,push:getWidth()-5})
+		spawnPos.y = math.random(12,push:getHeight()-12)
+		if spawnPos.x == 5 then
 			xVel = mainSpeed
 		else
 			xVel = -mainSpeed
 		end
 
-		yVel = math.random(-randomSpeed,randomSpeed)
+		if spawnPos.y > push:getHeight()/2 then
+			yVel = math.random(0,randomSpeed)
+		else
+			yVel = math.random(-randomSpeed,0)
+		end
 	else
 		spawnPos.x = math.random(0,push:getWidth())
-		spawnPos.y = lume.randomchoice({0,push:getHeight()})
-		if spawnPos.y == 0 then
+		spawnPos.y = lume.randomchoice({5,push:getHeight()-5})
+		if spawnPos.y == 5 then
 			yVel = mainSpeed
 		else
 			yVel = -mainSpeed
 		end
-		xVel = math.random(-randomSpeed,randomSpeed)
+
+		if spawnPos.x > push:getWidth()/2 then
+			xVel = math.random(-randomSpeed,0)
+		else
+			xVel = math.random(0,randomSpeed)
+		end
+
 	end
 
 	self.pos.x = spawnPos.x

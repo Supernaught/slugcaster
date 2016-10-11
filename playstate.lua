@@ -89,7 +89,7 @@ function playstate:draw()
 	push:apply("end")
 
 	PaletteSwitcher:set()
-	love.graphics.setColor(215,232,148)
+	local textscale = 2
 	PaletteSwitcher:unset()
 end
 
@@ -100,12 +100,12 @@ end
 function playstate.addScore(n)
 	score = score + (n or 1)
 
-	if score % 20 == 0 then
+	if score % 2 == 0 then
 		world:add(EnemyWalkerShooter())
 	end
 
 	if score % 10 == 0 and score < 50 then
-		spawner.spawnDelayMin = spawner.spawnDelayMin - 0.03
+		spawner.spawnDelayMin = spawner.spawnDelayMin - 0.02
 		spawner.spawnDelayMax = spawner.spawnDelayMax - 0.12
 	end
 end

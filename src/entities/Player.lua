@@ -158,8 +158,6 @@ function Player:shootControls(dt)
 	if down then
 		trailPs:setPosition(self.pos.x + math.random(-2,2), self.pos.y + 10)
 		trailPs:emit(1)
-		-- boost_sfx = assets.boost_sfx:clone()
-		-- boost_sfx:play()
 	end
 end
 
@@ -254,8 +252,10 @@ function Player:onCollision(other, delta)
 end
 
 function Player:die()
+	death = assets.death:clone()
+	death:play()
+	
 	timer.after(0.08, function() love.timer.sleep(0.1) end)
-	assets.death:clone():play()
 
 	screen:setShake(70)
 	-- screen:setRotation(0.1)

@@ -103,7 +103,7 @@ function Enemy:die()
 
 	explode_sfx = lume.randomchoice({
 		assets.explode1_sfx:clone(),
-		assets.explode2_sfx:clone(),
+		-- assets.explode2_sfx:clone(),
 		assets.explode3_sfx:clone(),
 	})
 	explode_sfx:play()

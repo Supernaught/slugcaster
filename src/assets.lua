@@ -36,7 +36,7 @@ assets.boost_sfx = love.audio.newSource(assets.boost_sfx_decoder)
 assets.explode1_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/explode1.wav"))
 assets.explode2_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/explode2.wav"))
 assets.explode3_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/explode3.wav"))
-assets.death = love.audio.newSource(love.sound.newDecoder("assets/sfx/die.wav"))
+assets.death = love.audio.newSource(love.sound.newDecoder("assets/sfx/death.wav"))
 
 assets.hit1_sfx = love.audio.newSource(love.sound.newDecoder("assets/sfx/enemyhit.wav"))
 
