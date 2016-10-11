@@ -77,13 +77,13 @@ function love.draw()
 
 end
 
-function love.keypressed(k)
-	if k == '1' then
-		PaletteSwitcher.prev()
-	elseif k == '2' then
-		PaletteSwitcher.next()
-	end
-end
+-- function love.keypressed(k)
+	-- if k == '1' then
+	-- 	PaletteSwitcher.prev()
+	-- elseif k == '2' then
+	-- 	PaletteSwitcher.next()
+	-- end
+-- end
 
 function setupPushScreen()
 	-- setup push screen

@@ -85,11 +85,14 @@ end
 function playstate:draw()
 	PaletteSwitcher:set()
 	push:apply("start")
+	-- local textscale = 1
+	-- love.graphics.setFont(assets.alt_font_sm)
+	-- love.graphics.printf("SCORE: " .. score, 0, 50, push:getWidth(), "center", 0, textscale,textscale)
+	-- love.graphics.printf("HI-SCORE: 100", 0, 62, push:getWidth(), "center", 0, textscale,textscale)
     love.graphics.draw(smokePs, 0, 0, 0, 1, 1)
 	push:apply("end")
 
 	PaletteSwitcher:set()
-	local textscale = 2
 	PaletteSwitcher:unset()
 end
 
@@ -100,7 +103,7 @@ end
 function playstate.addScore(n)
 	score = score + (n or 1)
 
-	if score % 2 == 0 then
+	if score % 20 == 0 then
 		world:add(EnemyWalkerShooter())
 	end
 
