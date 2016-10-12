@@ -66,17 +66,17 @@ function Enemy:onCollision(other)
 end
 
 function Enemy:hit(damage)
-	self.spark = true
 	self.hp = self.hp - (damage or 1)
-	
-	self.hitPs:setPosition(self.pos.x, self.pos.y)
-	self.hitPs:emit(math.random(2,5))
 
-	if self.hp <= 0 then
+	if self.isAlive and not self.toRemove and self.hp <= 0 then
 		-- die
 		self:die()
 	else
 		-- take damage
+		self.spark = true
+		
+		self.hitPs:setPosition(self.pos.x, self.pos.y)
+		self.hitPs:emit(math.random(2,5))
 		hit1_sfx = assets.bullet_sfx:clone()
 		hit1_sfx:play()
 		screen:setShake(4)

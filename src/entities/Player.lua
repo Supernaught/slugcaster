@@ -11,7 +11,7 @@ local xDrag = 300
 local maxVelY = 60
 
 function Player:new()
-	Player.super.new(self, push:getWidth()/2, push:getHeight()/2)
+	Player.super.new(self, push:getWidth()/2, push:getHeight()/2 - 20)
 	self.name = "Player"
 	self.isPlayer = true
 
@@ -269,7 +269,7 @@ function Player:die()
 
 	self.toRemove = true
 
-	timer.after(2, function() Gamestate.switch(menustate) end)
+	playstate.gameover()
 end
 
 function Player:checkBoundaries()

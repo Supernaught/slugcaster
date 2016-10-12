@@ -20,6 +20,9 @@ HC = nil
 
 local assets = require "src.assets"
 local spawner
+local showScores = false
+local newHighscore = false
+local hiscore = 0
 
 function playstate:enter()
 	HC = HClib.new(150)
@@ -27,6 +30,12 @@ function playstate:enter()
 
 	timer.clear()
 	score = 0
+	showScores = false
+	newHighscore = false
+
+	for i, score, name in highscore() do
+	    hiscore = score
+	end
 
 	self.setupExplosionSmokeParticles()
 
@@ -59,10 +68,6 @@ function playstate:enter()
 end
 
 function playstate:update(dt)
-	if love.keyboard.isDown("q") then
-		Gamestate.switch(menustate)
-	end
-
 	smokePs:update(dt)
 end
 
@@ -85,11 +90,29 @@ end
 function playstate:draw()
 	PaletteSwitcher:set()
 	push:apply("start")
-	-- local textscale = 1
-	-- love.graphics.setFont(assets.alt_font_sm)
-	-- love.graphics.printf("SCORE: " .. score, 0, 50, push:getWidth(), "center", 0, textscale,textscale)
-	-- love.graphics.printf("HI-SCORE: 100", 0, 62, push:getWidth(), "center", 0, textscale,textscale)
     love.graphics.draw(smokePs, 0, 0, 0, 1, 1)
+	love.graphics.setFont(assets.alt_font_sm)
+
+	if showScores then
+		love.graphics.setColor(255,1,1)
+		love.graphics.printf("SCORE: " .. score, 0, 60, push:getWidth(), "center")
+		love.graphics.setColor(100,1,1)
+		if newHighscore then
+			love.graphics.printf("NEW HI-SCORE!", 0,72, push:getWidth(), "center")
+		else
+			love.graphics.printf("HI-SCORE: " .. hiscore, 0, 72, push:getWidth(), "center")
+		end
+	else
+		love.graphics.setColor(255,1,1)
+		love.graphics.printf("SCORE " .. score, 0, push:getHeight() - 18, push:getWidth(), "center")
+		love.graphics.setColor(100,1,1)
+		if newHighscore then
+			love.graphics.printf("NEW HI-SCORE!", 0, push:getHeight() - 9, push:getWidth(), "center")
+		else
+			love.graphics.printf("HI-SCORE " .. hiscore, 0, push:getHeight() - 9, push:getWidth(), "center")
+		end
+	end
+
 	push:apply("end")
 
 	PaletteSwitcher:set()
@@ -103,6 +126,10 @@ end
 function playstate.addScore(n)
 	score = score + (n or 1)
 
+	if score > hiscore then
+		newHighscore = true
+	end
+
 	if score % 20 == 0 then
 		world:add(EnemyWalkerShooter())
 	end
@@ -111,6 +138,27 @@ function playstate.addScore(n)
 		spawner.spawnDelayMin = spawner.spawnDelayMin - 0.02
 		spawner.spawnDelayMax = spawner.spawnDelayMax - 0.12
 	end
+end
+
+function playstate.gameover()
+	timer.after(1.5, function() showScores = true end)
+
+	if score > hiscore then
+		newHighscore = true
+		highscore.add("", score)
+		highscore.save()
+	end
+end
+
+function playstate:keypressed(k)
+	if showScores and (k == 'space' or k == 'return') then
+		showScores = false
+		Gamestate.switch(menustate)
+	else
+		if k == 'q' then
+			Gamestate.switch(menustate)
+		end
+	end		
 end
 
 return playstate

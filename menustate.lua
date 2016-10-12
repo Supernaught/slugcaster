@@ -9,10 +9,15 @@ local assets =  require "src.assets"
 local title, pressToPlay
 local dir = 1
 
+local hiscore = 0
 local titleImage
 
 function menustate:enter()
 	timer.clear()
+
+	for i, score, name in highscore() do
+	    hiscore = score
+	end
 
 	local xSpeed = -50
 	local frontBg = MovingParallaxBG(assets.bg, 0, 'floatBottom', xSpeed)
@@ -22,7 +27,7 @@ function menustate:enter()
 	local backBg = MovingParallaxBG(assets.bg2, 0, 'floatBottom', xSpeed2)
 	local backBg2 = MovingParallaxBG(assets.bg2, push:getWidth(), 'floatBottom', xSpeed2, backBg)
 
-	local pressStartUI = UIText("PRESS START", 0, push:getHeight() * 0.75, push:getWidth(), nil, nil, assets.font_sm)
+	local pressStartUI = UIText("PRESS START", 0, push:getHeight() * 0.8, push:getWidth(), nil, nil, assets.font_sm)
 	pressStartUI.blinking = true
 	pressStartUI.blinkDelay = 0.5
 
@@ -45,21 +50,24 @@ function menustate:enter()
 		pressStartUI
 	)
 
-	flux.to(titleImage.pos, 1.5, {y = 25})
+	flux.to(titleImage.pos, 1.5, {y = 20})
+	timer.after(1.5, function() world:add(UIText("HI-SCORE: " .. hiscore, 0, 68, push:getWidth(), nil, nil, assets.alt_font_sm)) end)
 
 	world = self.world
     PaletteSwitcher.next()
 end
 
 function menustate:update(dt)
-	if love.keyboard.isDown("space") or love.keyboard.isDown("return") then
-		Gamestate.switch(PlayState)
-	end
-
 	flux.update(dt)
 end
 
 function menustate:draw()
+end
+
+function menustate:keypressed(k)
+	if k == 'space' or k == 'return' then
+		Gamestate.switch(PlayState)
+	end
 end
 
 return menustate

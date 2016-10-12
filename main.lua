@@ -10,6 +10,7 @@ Object = require "lib.classic"
 timer = require "lib.hump.timer"
 anim8 = require "lib.anim8"
 gamera = require "lib.gamera"
+highscore = require "lib.sick"
 
 -- Ulydev camera options
 Camera = require "lib.hump.camera"
@@ -42,6 +43,8 @@ function love.load()
 	camera = Camera(0,0)
 	PaletteSwitcher.init('lib/palettes_v4.png', 'lib/palette.fs');
     PaletteSwitcher.prev()
+	highscore.set('slugcaster_scores.txt', 1, "", 0)
+	-- highscore.load()
 
 	Gamestate.registerEvents()
 	Gamestate.switch(MenuState)
@@ -77,13 +80,13 @@ function love.draw()
 
 end
 
--- function love.keypressed(k)
-	-- if k == '1' then
-	-- 	PaletteSwitcher.prev()
-	-- elseif k == '2' then
-	-- 	PaletteSwitcher.next()
-	-- end
--- end
+function love.keypressed(k)
+	if k == '1' then
+		PaletteSwitcher.prev()
+	elseif k == '2' then
+		PaletteSwitcher.next()
+	end
+end
 
 function setupPushScreen()
 	-- setup push screen
