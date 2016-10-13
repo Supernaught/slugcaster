@@ -44,7 +44,6 @@ function love.load()
 	PaletteSwitcher.init('lib/palettes_v4.png', 'lib/palette.fs');
     PaletteSwitcher.prev()
 	highscore.set('slugcaster_scores.txt', 1, "", 0)
-	-- highscore.load()
 
 	Gamestate.registerEvents()
 	Gamestate.switch(MenuState)

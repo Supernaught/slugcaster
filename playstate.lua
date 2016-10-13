@@ -95,13 +95,16 @@ function playstate:draw()
 
 	if showScores then
 		love.graphics.setColor(255,1,1)
-		love.graphics.printf("SCORE: " .. score, 0, 60, push:getWidth(), "center")
-		love.graphics.setColor(100,1,1)
+		love.graphics.printf("SCORE: " .. score, 0, 50, push:getWidth(), "center")
+		love.graphics.setColor(150,1,1)
 		if newHighscore then
-			love.graphics.printf("NEW HI-SCORE!", 0,72, push:getWidth(), "center")
+			love.graphics.printf("NEW HI-SCORE!", 0, 62, push:getWidth(), "center")
 		else
-			love.graphics.printf("HI-SCORE: " .. hiscore, 0, 72, push:getWidth(), "center")
+			love.graphics.printf("HI-SCORE: " .. hiscore, 0, 62, push:getWidth(), "center")
 		end
+
+		love.graphics.setColor(100,1,1)
+		love.graphics.printf("[T]WEET YOUR SCORE!", 0, 92, push:getWidth(), "center")
 	else
 		love.graphics.setColor(255,1,1)
 		love.graphics.printf("SCORE " .. score, 0, push:getHeight() - 18, push:getWidth(), "center")
@@ -153,6 +156,13 @@ end
 function playstate:keypressed(k)
 	if showScores and (k == 'space' or k == 'return') then
 		showScores = false
+		Gamestate.switch(menustate)
+	elseif showScores and k == 't' then
+		if newHighscore then
+			love.system.openURL('https://twitter.com/intent/tweet?text=I got a new high score of ' .. score .. ' in Slugcaster! supernaught.itch.io/slugcaster\n\n@_supernaught+%23gbjam+%23gamedev+%23indiedev')
+		else
+			love.system.openURL('https://twitter.com/intent/tweet?text=I scored ' .. score .. ' in Slugcaster! supernaught.itch.io/slugcaster\n\n@_supernaught+%23gbjam+%23gamedev+%23indiedev')
+		end
 		Gamestate.switch(menustate)
 	else
 		if k == 'q' then

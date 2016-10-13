@@ -1,6 +1,8 @@
 # Slugcaster
 
-made for gbjam5
+A shoot-em-up game made for GBJAM5.
+
+Play it here: http://supernaught.itch.io/slugcaster
 
 ## Distribution
 
