@@ -1,11 +1,7 @@
 # Slugcaster
 
-A shoot-em-up game made for GBJAM5.
+A shoot-em-up game made with ![LÖVE](http://love2d.org) for GBJAM5.
+
+![](https://img.itch.io/aW1hZ2UvOTAxNDYvNDI1Nzc0LmdpZg==/315x250%23c/cGi%2Bhj.gif)
 
 Play it here: http://supernaught.itch.io/slugcaster
-
-## Distribution
-
-```
-$ zip -9 -r slugcaster.love . && cp slugcaster.love Slugcaster.app/Contents/Resources/
-```
